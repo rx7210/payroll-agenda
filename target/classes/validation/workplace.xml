@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+ 
+	<bean id="workPlaceValidationFieldsList" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<ref bean="keyWorkplace"/>
+    		 	<ref bean="nomWorkplace"/>
+    	 		<ref bean="dirWorkplace"/>
+    	 		<ref bean="emailWorkplace"/>
+    	 		<ref bean="telWorkplace"/>
+    	 		<ref bean="contactWorkplace"/>
+    	 		<ref bean="statusWorkplace"/>
+			</list>
+    	 </constructor-arg>
+	</bean>
+	<bean id="keyWorkplace" class="com.mx.hsbc.validation.ValidationField">
+		<property name="required" value="true" />
+		<property name="minLen" value="0" />
+		<property name="maxLen" value="5" />
+		<property name="name" value="keyWorkplace" />
+		<property name="description" value="Clave del Centro" />
+		<property name="regExpPattern" ref="regExpNumbers" />
+		<!-- Es opcional, si se establece tiene prioridad sobre el mensaje por default y no se utiliza el campo description -->
+		<property name="errorMessageRegExp" value="" />
+	</bean>
+	<bean id="nomWorkplace" class="com.mx.hsbc.validation.ValidationField">
+		<property name="required" value="true" />
+		<property name="minLen" value="0" />
+		<property name="maxLen" value="200" />
+		<property name="name" value="nomWorkplace" />
+		<property name="description" value="Nombre" />
+		<property name="regExpPattern" ref="regExpAlfaSpacesCarEsp" />
+		
+		<!-- Es opcional, si se establece tiene prioridad sobre el mensaje por default y no se utiliza el campo description -->
+		<property name="errorMessageRegExp" value="" />
+	</bean>
+	<bean id="dirWorkplace" class="com.mx.hsbc.validation.ValidationField">
+		<property name="required" value="true" />
+		<property name="minLen" value="0" />
+		<property name="maxLen" value="200" />
+		<property name="name" value="dirWorkplace" />
+		<property name="description" value="Dirección" />
+		<property name="regExpPattern" ref="regExpAlfaNumCarEsp" />
+		<!-- Es opcional, si se establece tiene prioridad sobre el mensaje por default y no se utiliza el campo description -->
+		<property name="errorMessageRegExp" value="" />
+	</bean>
+	<bean id="emailWorkplace" class="com.mx.hsbc.validation.ValidationField">
+		<property name="required" value="true" />
+		<property name="minLen" value="0" />
+		<property name="maxLen" value="150" />
+		<property name="name" value="emailWorkplace" />
+		<property name="description" value="Correo" />
+		<property name="regExpPattern" ref="regExpEmail" />
+		<!-- Es opcional, si se establece tiene prioridad sobre el mensaje por default y no se utiliza el campo description -->
+		<property name="errorMessageRegExp" value="" />
+	</bean>
+	<bean id="telWorkplace" class="com.mx.hsbc.validation.ValidationField">
+		<property name="required" value="true" />
+		<property name="minLen" value="0" />
+		<property name="maxLen" value="15" />
+		<property name="name" value="telWorkplace" />
+		<property name="description" value="Telefono" />
+		<property name="regExpPattern" ref="regExpNumbers" />
+		<!-- Es opcional, si se establece tiene prioridad sobre el mensaje por default y no se utiliza el campo description -->
+		<property name="errorMessageRegExp" value="" />
+	</bean>
+	<bean id="contactWorkplace" class="com.mx.hsbc.validation.ValidationField">
+		<property name="required" value="true" />
+		<property name="minLen" value="0" />
+		<property name="maxLen" value="150" />
+		<property name="name" value="contactWorkplace" />
+		<property name="description" value="Contacto" />
+		<property name="regExpPattern" ref="regExpAlfaSpaces" />
+		<!-- Es opcional, si se establece tiene prioridad sobre el mensaje por default y no se utiliza el campo description -->
+		<property name="errorMessageRegExp" value="" />
+	</bean>
+	<bean id="statusWorkplace" class="com.mx.hsbc.validation.ValidationField">
+		<property name="required" value="true" />
+		<property name="minLen" value="0" />
+		<property name="maxLen" value="2" />
+		<property name="name" value="statusWorkplace" />
+		<property name="description" value="Estatus" />
+		<property name="regExpPattern" ref="regExpNumbersStatus" />
+		<!-- Es opcional, si se establece tiene prioridad sobre el mensaje por default y no se utiliza el campo description -->
+		<property name="errorMessageRegExp" value="${status.invalido}" />
+	</bean>
+</beans>

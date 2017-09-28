@@ -1,0 +1,95 @@
+/****** Limites para arriba de: ******/
+/* s */
+@media (min-width: 601px){
+	html {
+		body {
+			&.welcome {
+				>.container {
+					width: 90%;
+				}
+			}
+			&.misact {
+				>.container {
+					width: 90%;
+				}
+			}
+		}
+	}
+}
+
+/* m */
+@media (min-width: 993px){
+	html{
+		body{
+			&.welcome {
+				>.container {
+					width: 80%;
+				}
+			}
+			>main{
+				article{
+					max-width: 95%;
+					margin: 0 auto;
+				}
+			}
+			&.misact {
+				>.container {
+					width: 80%;
+				}
+			}
+		}
+	}
+}
+
+/* l */
+@media (min-width: 1201px) {
+	html {
+		body {
+
+		}
+	}
+}
+
+
+
+
+/****** Limites Abajo de: ******/
+
+@media (max-width: 1200px){
+	html {
+		body {
+			
+		}
+	}
+}
+
+@media (max-width: 992px){
+	html {
+		body {
+
+		}
+	}
+}
+
+@media (max-width: 780px){
+	html {
+		body {
+
+		}
+	}
+}
+
+@media (max-width: 600px){
+	html {
+		body {
+
+		}
+	}
+}
+@media (max-width: 400px){
+	html {
+		body {
+
+		}
+	}
+}

@@ -1,0 +1,228 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'hsbc';
+    src: url('../fonts/UniversNextforHSBCW01-Bd.eot');
+    src: url('../fonts/UniversNextforHSBCW01-Bd.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/UniversNextforHSBCW01-Bd.woff') format('woff'),
+         url('../fonts/UniversNextforHSBCW01-Bd.ttf') format('truetype'),
+         url('../fonts/UniversNextforHSBCW01-Bd.svg') format('svg');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'hsbc';
+    src: url('../fonts/UniversNextforHSBCW01-Md.eot');
+    src: url('../fonts/UniversNextforHSBCW01-Md.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/UniversNextforHSBCW01-Md.woff') format('woff'),
+         url('../fonts/UniversNextforHSBCW01-Md.ttf') format('truetype'),
+         url('../fonts/UniversNextforHSBCW01-Md.svg') format('svg');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'hsbc';
+    src: url('../fonts/UniversNextforHSBCW01-Rg.eot');
+    src: url('../fonts/UniversNextforHSBCW01-Rg.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/UniversNextforHSBCW01-Rg.woff') format('woff'),
+         url('../fonts/UniversNextforHSBCW01-Rg.ttf') format('truetype'),
+         url('../fonts/UniversNextforHSBCW01-Rg.svg') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'hsbc';
+    src: url('../fonts/UniversNextforHSBCW01-Lt.eot');
+    src: url('../fonts/UniversNextforHSBCW01-Lt.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/UniversNextforHSBCW01-Lt.woff') format('woff'),
+         url('../fonts/UniversNextforHSBCW01-Lt.ttf') format('truetype'),
+         url('../fonts/UniversNextforHSBCW01-Lt.svg') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'hsbc';
+    src: url('../fonts/UniversNextforHSBCW01-UltLt.eot');
+    src: url('../fonts/UniversNextforHSBCW01-UltLt.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/UniversNextforHSBCW01-UltLt.woff') format('woff'),
+         url('../fonts/UniversNextforHSBCW01-UltLt.ttf') format('truetype'),
+         url('../fonts/UniversNextforHSBCW01-UltLt.svg') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}
+
+/*Iconos*/
+
+@font-face {
+  font-family: "hsbc";
+  src:url("../fonts/hsbc.eot");
+  src:url("../fonts/hsbc.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/hsbc.woff") format("woff"),
+    url("../fonts/hsbc.ttf") format("truetype"),
+    url("../fonts/hsbc.svg#hsbc") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "hsbc" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "hsbc" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-address:before {
+  content: "\64";
+}
+.icon-female:before {
+  content: "\65";
+}
+.icon-folder:before {
+  content: "\66";
+}
+.icon-income:before {
+  content: "\67";
+}
+.icon-job:before {
+  content: "\68";
+}
+.icon-ok:before {
+  content: "\6a";
+}
+.icon-personal:before {
+  content: "\6b";
+}
+.icon-security:before {
+  content: "\6c";
+}
+.icon-service:before {
+  content: "\6d";
+}
+.icon-error:before {
+  content: "\6e";
+}
+.icon-chevron-down:before {
+  content: "\6f";
+}
+.icon-chevron-left:before {
+  content: "\70";
+}
+.icon-chevron-right:before {
+  content: "\71";
+}
+.icon-chevron-up:before {
+  content: "\72";
+}
+.icon-cell:before {
+  content: "\61";
+}
+.icon-card:before {
+  content: "\62";
+}
+.icon-bullet:before {
+  content: "\63";
+}
+.icon-opps:before {
+  content: "\73";
+}
+.icon-list:before {
+  content: "\74";
+}
+.icon-note:before {
+  content: "\75";
+}
+.icon-male:before {
+  content: "\69";
+}
+.icon-job-1:before {
+  content: "\76";
+}
+.icon-cuenta:before {
+  content: "\77";
+}
+.icon-ing:before {
+  content: "\78";
+}
+.icon-active:before {
+  content: "\79";
+}
+.icon-edit:before {
+  content: "\7a";
+}
+.icon-id:before {
+  content: "\41";
+}
+.icon-dom:before {
+  content: "\42";
+}
+.icon-shape:before {
+  content: "\43";
+}
+.icon-done:before {
+  content: "\44";
+}
+.icon-arrow-back:before {
+  content: "\45";
+}
+.icon-camera:before {
+  content: "\46";
+}
+.icon-help:before {
+  content: "\47";
+}
+.icon-search:before {
+  content: "\48";
+}
+.icon-contact-phone:before {
+  content: "\49";
+}
+.icon-content:before {
+  content: "\4a";
+}
+.icon-done-1:before {
+  content: "\4b";
+}
+.icon-edit-1:before {
+  content: "\4c";
+}
+.icon-error-1:before {
+  content: "\4d";
+}
+.icon-map:before {
+  content: "\4e";
+}
+.icon-today:before {
+  content: "\4f";
+}
+.icon-twins:before {
+  content: "\50";
+}
+.icon-question:before {
+  content: "\51";
+}
+.icon-graduate:before {
+  content: "\52";
+}
+.icon-id-1:before {
+  content: "\53";
+}
