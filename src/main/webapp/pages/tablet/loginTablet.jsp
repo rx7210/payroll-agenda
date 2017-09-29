@@ -24,10 +24,13 @@
 				$('#userId').keyboard();
 				$('#password').keyboard(); 
 			}
+			$("#btn-login").click(function (){
+				messages.openLoading();
+			});
 		});
 	</script>
   </head> 
-  <body class="login background-city-back" onload=""> <!-- isConnected() -->
+  <body id="body" class="login background-city-back" onload=""> <!-- isConnected() -->
     <main class="main-login container">
       <section class="row">
 
@@ -62,7 +65,7 @@
                 	<p class="font-red">${error}</p>
                 </div>
                 <div class="cont-btn">
-                  <button class="btn-login btn regular" onclick="" id="btnSend" tabindex="3">Iniciar sessión</button>
+                  <button id="btn-login" class="btn-login btn regular" id="btnSend" tabindex="3">Iniciar sessión</button>
                 </div>
               </div>
               
@@ -71,5 +74,6 @@
         </div>
       </section>
     </main>
+    <%@ include file="messages.jsp" %>
   </body>
 </html>

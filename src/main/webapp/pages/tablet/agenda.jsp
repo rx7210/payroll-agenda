@@ -21,6 +21,18 @@
     <script src="/payroll-agenda/statics/js/jquery-1.12.4.js"></script>
     <script>
     $(document).ready(function() {
+    	body = $("#body");
+    	container = $("#container");
+    	burger=$("#burger");
+    	left_white_shadow=$('#left-white-shadow');	
+    	left_menu=$('#left-menu');
+    	lm_close=$("#lm-close");
+    	
+    	btn_agenda_visita=$("#btn-agenda-visita");
+    	right_black_shadow=$('#right-black-shadow');
+    	r_content=$('#r-content');
+    	rch_close=$("#rch-close");
+    	agenda_form=$("#agenda-form");
     	
     	$('#select-filter').change(function(){
 			var option, staVisit = ".staVisit" ;
@@ -38,53 +50,50 @@
 				$(staVisit+"." + option).show();
 			}
 		})
-    	
-		variable = hola;
-		$("#burger").add = variable
-		
-    	alert($("#burger").variable);
-    	
-		$("#burger").click(function (){
-			
-			$('#left-white-shadow').css('width','100%');
-	       	$('#left-menu').css('left','0px');	
+
+    	burger.click(function (){;
+    		left_white_shadow.animate({width:"100%"},0);
+			left_menu.animate({left:'0px'},50);	
 		});
 		
 		var closeLeftContent = function (){
-			$('#left-white-shadow').css('width','0');
-	       	$('#left-menu').css('left','-340px');
+			
+			left_white_shadow.animate({width:"0"},0);
+			left_menu.animate({left:'-340px'},0);
 		}
-		$("#left-white-shadow").click(closeLeftContent);
-		$("#lm-close").click(closeLeftContent);
+		left_white_shadow.click(closeLeftContent);
+		lm_close.click(closeLeftContent);
 		
-		$("#btn-agenda-visita").click(function (){
-			$('#right-black-shadow').css('width','100%');
-	       	$('#r-content').css('right','0px');
+		btn_agenda_visita.click(function (){
+			right_black_shadow.animate({width:"100%"},0);
+			r_content.animate({right:'0px'},50);
 		});
 		
 		var closeRightContent = function (){
-			$('#right-black-shadow').css('width','0');
-	       	$('#r-content').css('right','-450.8px');
+			right_black_shadow.animate({width:"0"},0);
+			r_content.animate({right:'-450.8px'},50);
 		}
-		$("#right-black-shadow").click(closeRightContent);
-		$("#rch-close").click(closeRightContent);
+		right_black_shadow.click(closeRightContent);
+		rch_close.click(closeRightContent);
 		
 		$("#lm-down").click(function (){
-			$("#agenda-form").attr('action', '/payroll-agenda/exitAgenda');
-			$("#agenda-form").submit();
+			messages.openLoading();
+			agenda_form.attr('action', '/payroll-agenda/exitAgenda');
+			agenda_form.submit();
 		});
 		
 		$("#lm-link-agenda").click(function (){
-			
-			$("#agenda-form").attr('action', '/payroll-agenda/homeAgenda');
-			$("#agenda-form").submit();
+			messages.openLoading();
+			closeLeftContent();
+			agenda_form.attr('action', '/payroll-agenda/homeAgenda');
+			agenda_form.submit();
 		});
 		
     });
     </script>
 	</head>
 	<body class="misact std-back">
-		<main class="container">
+		<main id="container" class="container">
 			<section class="row ma-block">
 				<div class="col s12 col-block">
 					
@@ -129,7 +138,7 @@
 
 						<div class="bwb-list-scrollableContainer">
 							<div class="row scrollArea">
-								<form id="agenda-form" method="get">
+								<form id="agenda-form" method="post">
 									<c:if test="${countCompanies <= 0}">
 										<div class="col s12 empty-state">
 											<p class="h2">No tienes actividades o empresas dadas de alta.</p>
@@ -218,7 +227,7 @@
 			</section>
 		</main>
 		<div id="left-white-shadow" class="left-white-shadow" ></div>
-    
+  		  
 		<section id="left-menu" class="left-menu"> 
 			<div id="lm-dark-cont" class="lm-dark-cont">
 				<div class="lm-up">
@@ -338,7 +347,6 @@
 		</section>
 		<script src="/payroll-agenda/statics/js/vendors.min.js"></script>
     	<script src="/payroll-agenda/statics/js/main.min.js"></script>
-    	<script src="/payroll-agenda/statics/js/main.min.js"></script>
     	<script src="/payroll-agenda/statics/js/vendors/materialize.clockpicker.js"></script>
     	<script>
     	$('.datepicker').pickadate({
@@ -361,5 +369,6 @@
 	        aftershow: function(){} //Function for after opening timepicker
       });
     	</script>
+    	<%@ include file="messages.jsp" %>
 	</body>
 </html>

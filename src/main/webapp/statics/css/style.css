@@ -216,6 +216,9 @@
 .icon-logout-1:before {
   content: "\56";
 }
+.icon-logo-close:before {
+  content: "\57";
+}
 
 
 /*Fuentes*/
@@ -438,37 +441,25 @@ body {
     list-style: none; }
   body .white-square-bloq {
     background: #ffffff;}
-  body.progressBar .container{
-  	position: relative;
-    width: 100%;
-    height: 100%;}
-  body.progressBar .container .progressBar-block {
+   body .right-black-shadow{
   	position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    width: 0px;}
+  body .left-white-shadow {
+  	position: absolute; 
+    top: 0;
     left: 0;
     right: 0;
-    top: 41%;
-    padding: 0;
-    margin: auto;
-    min-width: 297px;
-    width: 29%;
-    height: 115.9px;}
-  body.progressBar .container .progressBar-block .progressBar-fondo{
-  	background-color: #ffffff;
-    height: 12px;
-    border-radius: 13%;
-    position: relative;
-    top: 13.4%;}
-  body.progressBar .container .progressBar-block .progressBar-text {
-  	margin-bottom: 7px;
-  	text-align: center;}
-  body.progressBar .container .progressBar-block .progressBar-active{
-  	 width: 29%;
-  	 background-color: #db0011;
-  	 height: 5px;
-  	 border-radius: 15%;} 	 
-  .input-field label:not(.label-icon).active {
-	 	color: transparent; 
-	 }
+    bottom: 0;
+    height: 100%;
+    width: 0;
+    background: rgba(254, 254, 254, 0.8);}
+    
+     
 
 /* inicio scrollable-table ******************************************/
 	body .bwb-list-scrollableContainer {
@@ -579,6 +570,80 @@ body {
 		    -moz-user-select: none;
 		    -webkit-user-select: none;
 		    -ms-user-select: none;}
+    
+/*-----------------------------------------------------------------mensaje.jsp------------------------------------------------------*/
+    
+    body .message-content {
+	    position: absolute;
+	    top: -165px; 
+/* 	    top:0; */
+	    left: 0;
+	    right: 0;
+	    transition: 0.5s;
+	    min-height: 140px;
+	    height: 19.55%;
+	    max-height: 160px;
+	    min-width: 150px;
+	    width: 79.4%;
+	    z-index: 1;
+	    text-align: right;
+	    margin: auto;
+	    padding: 1.5% 7% 1.5% 7%;}
+    body .message-content .msg-text {
+      	display: inline-block;
+      	text-align: left;
+      	overflow: auto;}
+    body .message-content .msg-text .fond-red {
+		color: #DD1F26;}
+    body .message-content .msg-close {
+      	display: inline-block;
+      	height: 100%;
+    	position: relative;}
+    body .message-content .msg-close .icon {
+      	position: absolute;
+      	font-size: 40px;
+      	color: #bdbdbd;
+      	right: 0;
+	    top: 0;
+	    bottom: 0;
+	    margin: auto;
+	    width: 40px;
+	    height: 40px;}
+    
+/*-----------------------------------------------------------------progress.jsp------------------------------------------------------*/    
+  body .loading {
+	position: absolute;
+	background: url(../images/tablet/Fondociudad.png) no-repeat center bottom fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #F2F7FC;
+    height: 100%;
+    z-index: 2;
+    width: 0px}
+  body .loading .loading-block {
+  	position: absolute;
+    left: 0;
+    right: 0;
+    top: 41%;
+    padding: 0;
+    margin: auto;
+    min-width: 297px;
+    width: 29%;
+    height: 115.9px;}
+  body .loading .loading-block .loading-text {
+  	margin-top: 0px;
+  	text-align: center;}
+  body .loading .loading-block .img-container {
+  	width : 100%;
+  	height: 80px;}
+  body .loading .loading-block .img-container .img {
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+	height: auto;
+	width: 85px;}
 
 /*-----------------------------------------------------------------splash.jsp------------------------------------------------------*/
 	body.splash .container{
@@ -715,73 +780,73 @@ body {
         max-width: 215px; }
 
 /*-----------------------------------------------------------------loading.jsp------------------------------------------------------*/        
-  body.loading {
-    min-height: 100%;
-    position: relative; }
-    body.loading main {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: auto;
-      display: inline-block;
-      width: 200px;
-      height: 200px; }
-    body.loading .l-content {
-      display: -webkit-box;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-flex-direction: column;
-      -moz-flex-direction: column;
-      -ms-flex-direction: column;
-      flex-direction: column;
-      -webkit-justify-content: center;
-      -moz-justify-content: center;
-      -ms-justify-content: center;
-      justify-content: center;
-      -ms-flex-pack: center;
-      -webkit-align-items: center;
-      -moz-align-items: center;
-      -ms-align-items: center;
-      align-items: center; }
-      body.loading .l-content .l-centering {
-        width: 180px;
-        text-align: center; }
-      body.loading .l-content .l-reddot {
-        background: #db0011;
-        border-radius: 50%;
-        height: 100px;
-        width: 100px;
-        margin: 0 auto;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-flex-direction: column;
-        -moz-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        -webkit-justify-content: center;
-        -moz-justify-content: center;
-        -ms-justify-content: center;
-        justify-content: center;
-        -ms-flex-pack: center;
-        -webkit-align-items: center;
-        -moz-align-items: center;
-        -ms-align-items: center;
-        align-items: center; }
-        body.loading .l-content .l-reddot img {
-          display: inline-block;
-          width: 70%;
-          height: auto; }
-      body.loading .l-content p {
-        font-weight: 100;
-        color: #404040;
-        line-height: 1.1; }
+/*   body.loading { */
+/*     min-height: 100%; */
+/*     position: relative; } */
+/*     body.loading main { */
+/*       position: absolute; */
+/*       top: 0; */
+/*       bottom: 0; */
+/*       left: 0; */
+/*       right: 0; */
+/*       margin: auto; */
+/*       display: inline-block; */
+/*       width: 200px; */
+/*       height: 200px; } */
+/*     body.loading .l-content { */
+/*       display: -webkit-box; */
+/*       display: -moz-box; */
+/*       display: -ms-flexbox; */
+/*       display: -webkit-flex; */
+/*       display: flex; */
+/*       -webkit-flex-direction: column; */
+/*       -moz-flex-direction: column; */
+/*       -ms-flex-direction: column; */
+/*       flex-direction: column; */
+/*       -webkit-justify-content: center; */
+/*       -moz-justify-content: center; */
+/*       -ms-justify-content: center; */
+/*       justify-content: center; */
+/*       -ms-flex-pack: center; */
+/*       -webkit-align-items: center; */
+/*       -moz-align-items: center; */
+/*       -ms-align-items: center; */
+/*       align-items: center; } */
+/*       body.loading .l-content .l-centering { */
+/*         width: 180px; */
+/*         text-align: center; } */
+/*       body.loading .l-content .l-reddot { */
+/*         background: #db0011; */
+/*         border-radius: 50%; */
+/*         height: 100px; */
+/*         width: 100px; */
+/*         margin: 0 auto; */
+/*         display: -webkit-box; */
+/*         display: -moz-box; */
+/*         display: -ms-flexbox; */
+/*         display: -webkit-flex; */
+/*         display: flex; */
+/*         -webkit-flex-direction: column; */
+/*         -moz-flex-direction: column; */
+/*         -ms-flex-direction: column; */
+/*         flex-direction: column; */
+/*         -webkit-justify-content: center; */
+/*         -moz-justify-content: center; */
+/*         -ms-justify-content: center; */
+/*         justify-content: center; */
+/*         -ms-flex-pack: center; */
+/*         -webkit-align-items: center; */
+/*         -moz-align-items: center; */
+/*         -ms-align-items: center; */
+/*         align-items: center; } */
+/*         body.loading .l-content .l-reddot img { */
+/*           display: inline-block; */
+/*           width: 70%; */
+/*           height: auto; } */
+/*       body.loading .l-content p { */
+/*         font-weight: 100; */
+/*         color: #404040; */
+/*         line-height: 1.1; } */
 
 /*-----------------------------------------------------------------agenda.jsp------------------------------------------------------*/
   body.misact {
@@ -1110,14 +1175,7 @@ body {
           background: #4b6175; }
         body .down-breadcumb ul li.stepon {
           background: #3d7b27; }
-  body .right-black-shadow{
-  	position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    height: 100%;
-    width: 0px;}
+
   body .r-content {
     position: absolute;
     top: 0;
@@ -1207,17 +1265,8 @@ body {
         margin: 10px auto 20px auto;
         padding: 0;
         border: 0;
-        border-top: 1px solid #d7d8d6; }
-  body .left-white-shadow {
-  	position: absolute; 
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 100%;
-    width: 0;
-    background: rgba(254, 254, 254, 0.8);
-  }
+        border-top: 1px solid #d7d8d6; }        
+
   body .left-menu {
     position: absolute; 
     top: 0;
