@@ -251,6 +251,24 @@ input[type="button"]:focus::-moz-focus-inner,
 input[type="submit"]:focus::-moz-focus-inner,
 input[type="file"] > input[type="button"]:focus::-moz-focus-inner {
   border: none; }
+  
+input:not([type]),
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
+input[type=time],
+input[type=date], 
+input[type=datetime], 
+input[type=datetime-local], 
+input[type=tel], 
+input[type=number], 
+input[type=search], 
+textarea.materialize-textarea {
+	border : 0.5px solid #9e9e9e;
+	padding: 0px 10px;
+	box-sizing: border-box;
+}
 
 input[type="text"]:focus:not([readonly])+label{
 	color:transparent;
@@ -326,7 +344,7 @@ body {
   body .form-tips {
     display: none; }
   body .data-write .input-field {
-    border: 0 !important; }
+    border: 0 !important;}
     body .data-write .input-field:after {
       display: none; }
     body .data-write .input-field:before {
@@ -405,6 +423,8 @@ body {
   	box-sizing: border-box;}
   body input[type="password"], body input.password-type {
     -webkit-text-security: disc; }
+    
+  
 
 /* Calendario ******************************************/
 	.picker__date-display {
@@ -1188,7 +1208,7 @@ body {
     text-align: right; }
     body .r-content .rc-back {
       background: #ffffff;
-      width: 450.8px;
+      width: 500px;
       display: inline-block;
       text-align: left;
       height: 100%;
@@ -1197,7 +1217,7 @@ body {
       background: #4a6176;
       color: #ffffff;
       position: relative;
-      padding: 120px 70px 30px 70px; }
+      padding: 70px 70px 30px 55px; }
       body .r-content .rc-heading .rch-close {
         position: absolute;
         top: 14px;
@@ -1223,18 +1243,19 @@ body {
     body .r-content .rc-info {
       color: #404040;
       max-width: 350px;
-      margin: 40px auto; }
+      margin: 40px 53px 40px; }
       body .r-content .rc-info .rci-form {
-        margin-bottom: 50px; }
+        margin-bottom: 35px; }
         body .r-content .rc-info .rci-form .col {
-          padding: 0 15px 0 0; }
+          padding: 0 0 0 0; }
           body .r-content .rc-info .rci-form .col:nth-child(2) {
             padding-right: 0; }
         body .r-content .rc-info .rci-form .cont-btn {
           width: 160px; }
       body .r-content .rc-info .rci-title {
         position: relative;
-        line-height: 1.1; }
+        line-height: 1.1;
+        margin-bottom: 11px;}
         body .r-content .rc-info .rci-title:before {
           position: absolute;
           left: 0;
@@ -1262,7 +1283,7 @@ body {
         margin: 0 auto;
         color: #666666; }
       body .r-content .rc-info hr {
-        margin: 10px auto 20px auto;
+        margin: 5px 0px 0px 0px;
         padding: 0;
         border: 0;
         border-top: 1px solid #d7d8d6; }        

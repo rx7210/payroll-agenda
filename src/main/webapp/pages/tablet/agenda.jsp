@@ -71,7 +71,7 @@
 		
 		var closeRightContent = function (){
 			right_black_shadow.animate({width:"0"},0);
-			r_content.animate({right:'-450.8px'},50);
+			r_content.animate({right:'-500px'},50);
 		}
 		right_black_shadow.click(closeRightContent);
 		rch_close.click(closeRightContent);
@@ -299,17 +299,17 @@
 					</div>
 				</div>
 				<div class="rc-info">
-					<div class="rci-title">
-						<p>Fecha y hora propuestas</p>
-					</div>
-					<hr>
 					<form class="rci-form">
+						
 						<div class="row">
+							<div class="col s12 rci-title">
+								<p>Fecha y hora propuestas</p>
+							</div>
+							<hr class="col s12">
 							<div class="col s6">
 								<div class="data-write rci-date">
 									<div class="input-field">
 										<input class="datepicker" type="text" maxlength="10" minlength="10" placeholder="Fecha">
-										<p class="form-tips">Introduce tu ...</p>
 									</div>
 								</div>
 							</div>
@@ -317,10 +317,21 @@
 								<div class="data-write rci-hour">
 									<div class="input-field">
 										<input class="timepicker" type="text" maxlength="10" minlength="10" placeholder="Hora">
-										<p class="form-tips">Introduce tu ...</p>
 									</div>
 								</div>
 							</div>
+							<div class="col s12 rci-title">
+								<p>Ubicación</p>
+							</div>
+							<hr class="col s12">
+							<div class="col s12">
+								<div class="data-write rci-date">
+									<div class="input-field">
+										<input type="text" maxlength="10" minlength="10" placeholder="Dirección">
+									</div>
+								</div>
+							</div>
+							
 							<div class="col s12 cont-btn">
 								<a href="#" class="btn little red">Guardar</a>
 							</div>
