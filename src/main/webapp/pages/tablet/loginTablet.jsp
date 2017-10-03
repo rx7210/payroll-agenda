@@ -52,13 +52,13 @@
               
                 <div class="data-write">
                   <div class="input-field">
-                    <input 	id="userId" class="input-box-login" type="text" name="userId" tabindex="1" maxlength="10" required placeholder="Número de registro">
+                    <input 	id="userId" name="userId" class="input-box-login" type="text"  tabindex="1" maxlength="10" required placeholder="Número de registro">
                   </div>
                 </div>
 
                 <div class="data-write">
                   <div class="input-field">
-                    <input id="password" class="input-box-login password-type" type="text" name="password" tabindex="2" required placeholder="Contraseña">
+                    <input type="password" id="password" name="password" class="input-box-login password-type"  tabindex="2" required placeholder="Contraseña">
                   </div>
                 </div>
                 <div class="message-error">
@@ -68,7 +68,7 @@
                   <button id="btn-login" class="btn-login btn regular" id="btnSend" tabindex="3">Iniciar sessión</button>
                 </div>
               </div>
-              
+              <input type="hidden" name="origen" value="2">
             </div>
           </form>
         </div>

@@ -222,52 +222,53 @@ public class AgendaController extends Utils {
         this.mav = new ModelAndView("tablet/agenda");
         try {
         	final User user = (User) httpSession.getAttribute("user");	
-        
-	        final String nameCompany = request.getParameter("nameCompany");
-	        final String keyVisit = request.getParameter("keyVisit");
-	        final String date = request.getParameter("datepicker");
-	        final String hours = request.getParameter("hours");
-	        final String minutes = request.getParameter("minutes");
-	        String ampm = request.getParameter("ampm");
+//	        final String nameCompany = request.getParameter("nameCompany");
+//	        final String keyVisit = request.getParameter("keyVisit");
+//	        final String date = request.getParameter("datepicker");
+//	        final String hours = request.getParameter("hours");
+//	        final String minutes = request.getParameter("minutes");
+//	        String ampm = request.getParameter("ampm");
 	
-	        int horas = Integer.parseInt(hours);
-	        if (StringUtils.equalsIgnoreCase("PM", ampm)) {
-	            if (Integer.parseInt(hours) < 12) {
-	                horas = Integer.parseInt(hours) + 12;
-	            }
-	        }
-	        if (StringUtils.equalsIgnoreCase("AM", ampm)) {
-	            if (Integer.parseInt(hours) == 12) {
-	                horas = 0;
-	            }
-	        }
-	
-	        final String agendaDate = date + " " + completeHourMinute(String.valueOf(horas)) + ":" + completeHourMinute(minutes)
-	            + ":00 " + ampm;
+//	        int horas = Integer.parseInt(hours);
+//	        if (StringUtils.equalsIgnoreCase("PM", ampm)) {
+//	            if (Integer.parseInt(hours) < 12) {
+//	                horas = Integer.parseInt(hours) + 12;
+//	            }
+//	        }
+//	        if (StringUtils.equalsIgnoreCase("AM", ampm)) {
+//	            if (Integer.parseInt(hours) == 12) {
+//	                horas = 0;
+//	            }
+//	        }
+//	
+//	        final String agendaDate = date + " " + completeHourMinute(String.valueOf(horas)) + ":" + completeHourMinute(minutes)
+//	            + ":00 " + ampm;
 	
 	        try {
-	        	int totDays = 10;
+//	        	int totDays = 10;
 //	            int totDays = this.agendaService.getIntValue(SqlsAgenda.GET_DAYS_POC, keyVisit); //Irving
-	        	Date dateCreateAccount = new Date();
+//	        	Date dateCreateAccount = new Date();
 //	        	dateCreateAccount = this.agendaService.getDateCreateAccount(keyVisit) //Irving
-	            Date datePoc = datePoc(dateCreateAccount, totDays);
-	            Date dateSchedule = stringToDate(agendaDate, Constants.FMT_DDMMYYYY_HHMMSS_A);
+//	            Date datePoc = datePoc(dateCreateAccount, totDays);
+//	            Date dateSchedule = stringToDate(agendaDate, Constants.FMT_DDMMYYYY_HHMMSS_A);
 	
-	            if (isValidDateForSchedule(dateToDateWithFormat(datePoc, Constants.FMT_DDMMYYYY),
-	                dateToDateWithFormat(dateSchedule, Constants.FMT_DDMMYYYY))) {
+//	            if (isValidDateForSchedule(dateToDateWithFormat(datePoc, Constants.FMT_DDMMYYYY),
+//	                dateToDateWithFormat(dateSchedule, Constants.FMT_DDMMYYYY))) {
 	
 //	                this.agendaService.schedule(agendaDate, nameCompany, user.getUserId(), keyVisit); //Irving
 	
-	                log(user, "Agendo Empresa " + nameCompany);
-	            } else {
-	                this.mav.addObject("message", "No es posible agendar la visita, por favor intenta con otra fecha");
-	            }
+//	                log(user, "Agendo Empresa " + nameCompany);
+//	            } else {
+//	                this.mav.addObject("message", "No es posible agendar la visita, por favor intenta con otra fecha");
+//	            }
 	        } catch (Exception exc) {
 	            this.LOGGER.error(exc);
 	            this.mav.addObject("message", "No es posible agendar la visita, verifique la fecha");
 	        }
 	
 	        List<Schedule> dataList = new ArrayList<Schedule>();
+	        MockGeneration mockGeneration = new MockGeneration();
+	        dataList = mockGeneration.getCompanyList();
 //	        dataList = this.agendaService.getCompanyList(user.getUserId()); //Irving
 	
 	        this.mav.addObject("regsXPage", pagination());
@@ -297,21 +298,23 @@ public class AgendaController extends Utils {
     public final ModelAndView startVisit(final HttpSession httpSession, final HttpServletRequest request) {
         this.mav = new ModelAndView("tablet/company");
         try {
-	        final User user = (User) httpSession.getAttribute("user");
-	        String keyVisit = request.getParameter("keyVisit");
-	        String nameCompany = request.getParameter("nameCompany");
-	
-	        if (StringUtils.isBlank(keyVisit) || StringUtils.isBlank(nameCompany)) {
-	            keyVisit = (String) httpSession.getAttribute("keyVisit");
-	            nameCompany = (String) httpSession.getAttribute("nameCompany");
-	        }
+//	        final User user = (User) httpSession.getAttribute("user");
+//	        String keyVisit = request.getParameter("keyVisit");
+        	String keyVisit = "1";
+//	        String nameCompany = request.getParameter("nameCompany");
+        	String nameCompany = "Nombre de la compañia";
+//	
+//	        if (StringUtils.isBlank(keyVisit) || StringUtils.isBlank(nameCompany)) {
+//	            keyVisit = (String) httpSession.getAttribute("keyVisit");
+//	            nameCompany = (String) httpSession.getAttribute("nameCompany");
+//	        }
 //	        if (1 == this.agendaService.getIntValue(SqlsAgenda.GET_STATUS_VISIT, keyVisit)) {  //Irving
-	        int valor = 1;
-	        if (1 == valor) {
-	            log(user, "Inicia visita Empresa " + nameCompany);
-	
-//	            this.agendaService.pendingVisit(keyVisit, nameCompany, user.getUserId());  //Irving
-	        }
+//	        int valor = 1;
+//	        if (1 == valor) {
+//	            log(user, "Inicia visita Empresa " + nameCompany);
+//	
+////	            this.agendaService.pendingVisit(keyVisit, nameCompany, user.getUserId());  //Irving
+//	        }
 	
 	        List<Accounts> dataList = new ArrayList<Accounts>();
 //	        dataList = this.agendaService.accountsCompany(user.getUserId(), keyVisit);  //Irving

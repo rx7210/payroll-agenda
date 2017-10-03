@@ -39,8 +39,6 @@ var messages = {
 	    }
 };
 
-
-
 $("#msg-close").click(messages.closeMessageFailConnection);
 $("#msg-black-shadow").click(messages.closeMessageFailConnection);
 setTimeout(messages.validateConnection,1000); 

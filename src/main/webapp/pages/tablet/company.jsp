@@ -1,252 +1,296 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"   pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="true"%>
 <%
     response.setHeader("Cache-Control", "no-cache");
-	response.setHeader("Pragma", "no-cache");
-	response.setDateHeader("Expires", 0);
+			response.setHeader("Pragma", "no-cache");
+			response.setDateHeader("Expires", 0);
 %>
 <html lang="es">
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<link rel="stylesheet" href="/payroll-agenda/statics/css/bootstrap.css">
-	<link rel="stylesheet" href="/payroll-agenda/statics/css/signin.css">
-	<script src="<spring:theme code='closeNav' />"></script>
-	<script src="<spring:theme code='jquery'/>"></script>
-	<script src="<spring:theme code='payroll'/>"></script>
-	<script src="<spring:theme code='shortcut'/>"></script>
-	<script src="/payroll-agenda/statics/js/bootstrap.js"></script>
-	<script src="/payroll-agenda/statics/js/list.js"></script>
-	
-	<link rel="stylesheet" href="/payroll-agenda/statics/css/materialIcons.css">
-	<link rel="stylesheet" href="/payroll-agenda/statics/css/MaterialDate.css">
-	<link rel="stylesheet" href="/payroll-agenda/statics/css/sidenav.css">
-	<script src="/payroll-agenda/statics/js/materialize.js"></script>
-	
-	<script type="text/javascript">
-	function verInforme(account) {
-		$("#account").val(unescape(account));
-	}
-	
-	function integrarCuenta(account, nameClient) {
-		$('#spinner').modal();
-		$("#account").val(unescape(account));
-		$("#nameClient").val(unescape(nameClient));
-		document.forms['formCompany'].action = "/payroll-agenda/startIntegration";
-		document.forms['formCompany'].submit();
-	}
-	
-	function sendImages(account) {
-		$('#spinner').modal();
-		$("#account").val(unescape(account));
-		document.forms['formCompany'].action = "/payroll-agenda/sendImages";
-		document.forms['formCompany'].submit();
-	}
-	
-	function isConnected() {
-		var urlLoc = window.location.href;
-		var idx = urlLoc.search("payroll-agenda/") + 15;
-		var url = urlLoc.substring(0, idx) + "statics/js/jquery-ui.js";
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>HSBC</title>
+    <link rel="shortcut icon" 	href="/payroll-agenda/statics/images/tablet/favicon.ico">
+    <link rel="stylesheet" 		href="/payroll-agenda/statics/css/vendors/materialize.clockpicker.css">
+    <link rel="stylesheet" 		href="/payroll-agenda/statics/css/style.css">
+ 
+    <script src="/payroll-agenda/statics/js/jquery-1.12.4.js"></script>
+    <script>
+    $(document).ready(function() {
+    	body = $("#body");
+    	container = $("#container");
+    	burger=$("#burger");
+    	left_white_shadow=$('#left-white-shadow');	
+    	left_menu=$('#left-menu');
+    	lm_close=$("#lm-close");
+    	
+    	btn_agenda_visita=$("#btn-agenda-visita");
+    	right_black_shadow=$('#right-black-shadow');
+    	r_content=$('#r-content');
+    	rch_close=$("#rch-close");
+    	activities_form=$("#activities-form");
+    	agenda_form=$("#agenda-form");
+    	
+    	$('#select-filter').change(function(){
+			var option, staVisit = ".staVisit" ;
+			$( "#select-filter option:selected" ).each(function() {
+				option = $( this ).val();
+			    });
+			if (option==0){
+				$ (staVisit).each(function (){
+					$(this).show();
+				});
+			}else{
+				$ (staVisit).each(function (){
+					$(this).hide();
+				});
+				$(staVisit+"." + option).show();
+			}
+		})
 
-		try {
-			var http = new XMLHttpRequest();
-			http.open('HEAD', url, false);
-			http.send();
-			$('#noConnection').modal('hide');
-		} catch(err) {
-			$('#noConnection').modal();
+    	burger.click(function (){;
+    		left_white_shadow.animate({width:"100%"},0);
+			left_menu.animate({left:'0px'},50);	
+		});
+		
+		var closeLeftContent = function (){
+			
+			left_white_shadow.animate({width:"0"},0);
+			left_menu.animate({left:'-340px'},0);
 		}
-	
-		setTimeout("isConnected()",1000);
-	}
-	$(document).ready(function(){
-		var regsXPage = parseInt($("#regsXPage").val());
-		var list = new List('nominaHabientes', {
-			valueNames : [ 'name' ],
-			page : regsXPage,
-			pagination : true
+		left_white_shadow.click(closeLeftContent);
+		lm_close.click(closeLeftContent);
+		
+		btn_agenda_visita.click(function (){
+			right_black_shadow.animate({width:"100%"},0);
+			r_content.animate({right:'0px'},50);
 		});
 		
-		$(".button-collapse").sideNav({
-		      closeOnClick: true
-
+		var closeRightContent = function (){
+			right_black_shadow.animate({width:"0"},0);
+			r_content.animate({right:'-500px'},50);
+		}
+		right_black_shadow.click(closeRightContent);
+		rch_close.click(closeRightContent);
+		
+		$("#lm-down").click(function (){
+			messages.openLoading();
+			activities_form.attr('action', '/payroll-agenda/exitAgenda');
+			activities_form.submit();
 		});
 		
-	});
-	
-	</script>
-	<title>Agenda</title>
-</head>
-<body onload="isConnected()" style="padding:0px; width: 100%; height: 100%;">
-<form id="formCompany" method="post" action="/payroll-agenda/agendar">
-	<div class="col-xs-12">
-		<div class="row shadow"  style="background: #f9f9ff;">
-			<div class="col-xs-2 nopadding" >
-				<div class="col-xs-7 col-md-4 col-lg-2 nopadding" >
-					<a href="#" data-activates="slide-out" class="button-collapse"><i style="padding-top: 10px; font-size: 30px;color:black;padding-left:5px;" class="material-icons">menu</i></a>
-				</div>
-				<div class="col-xs-5 col-md-8 col-lg-10 nopadding" align="left" >
-					<img style="padding-top: 10px;" alt="HSBC" src="/payroll-agenda/statics/images/tablet/LogoBlue2.png" class="img-responsive">
-				</div>
-			</div>
-			<div class="col-xs-2 hidetext" align="left"  >
-				<a href="#" class="link" 
-					onclick="document.forms['formCompany'].action = '/payroll-agenda/homeAgenda'; document.forms['formCompany'].submit();">
-					<img alt="Regresar" src="/payroll-agenda/statics/images/tablet/FLECHA2.png" class="img-responsive" style="padding:10px 0px 0px 0px">
-					Regresar</a>
-			</div>
-			<div class="col-xs-6 " >
-				<h3 align="center" class="headstyle">${nameCompany}</h3>
-			</div>
-			<div class="col-xs-2 hidetext " align="center">
-				<a href="#" class="link"><img src="/payroll-agenda/statics/images/tablet/Ayuda.png" class="img-responsive center-block" style="padding:7px 0px 0px 0px">Ayuda</a>
-			</div>
-		</div>
-		<div class="row ">
-<!-- 			<div class="col-xs-1 whitetop shadowdown hidetext" align="center"> -->
-<!-- 				<div class="row menufont" > -->
-<!-- 					<a  class="link " href="#" onclick="document.forms['formCompany'].action = '/payroll-agenda/homeAgenda'; document.forms['formCompany'].submit();"> -->
-<!-- 						<img alt="Mi Agenda" src="/payroll-agenda/statics/images/tablet/Mi_agenda_y_actividades.png" class="img-responsive center-block paddingpo"> -->
-<!-- 						Mi Agenda y Actividades -->
-<!-- 					</a> -->
-<!-- 				</div> -->
-<!-- 				<hr class="nopadding"> -->
-<!-- 				<div class="row menufont" > -->
-<!-- 					<img src="/payroll-agenda/statics/images/tablet/Mi_Perfil_OFF.png" class="img-responsive center-block paddingpo"/> -->
-<!-- 					Mi Perfil -->
-<!-- 				</div> -->
-<!-- 				<hr class="nopadding"> -->
-<!-- 				<div class="row menufont" > -->
-<!-- 					<img src="/payroll-agenda/statics/images/tablet/Mis_cursos_y_capacitaciones_OFF.png" class="img-responsive center-block paddingpo"/> -->
-<!-- 					Mis cursos y capacitaciones -->
-<!-- 				</div> -->
-<!-- 				<hr class="nopadding"> -->
-<!-- 				<div class="row menufont" > -->
-<!-- 					<img src="/payroll-agenda/statics/images/tablet/Ayuda_y_soporte_OFF.png" class="img-responsive center-block paddingpo" /> -->
-<!-- 					Ayuda y soporte -->
-<!-- 				</div> -->
-<!-- 				<hr class="nopadding"> -->
-<!-- 				<div class="row menufont" > -->
-<!-- 					<a href="#" onclick="document.forms['formCompany'].action='/payroll-agenda/exitAgenda'; document.forms['formCompany'].submit();" class="link"> -->
-<!-- 						<img alt="Cerrar Sesion" src="/payroll-agenda/statics/images/tablet/LogOut.png" class="img-responsive center-block paddingpo"/> -->
-<!-- 						Cerrar sesión -->
-<!-- 					</a> -->
-<!-- 				</div> -->
-				
-<!-- 			</div> -->
-			<div class="col-xs-12" style="padding:3%;">
-				<c:if test="${not empty error}">
-					<div class="alert alert-dismissible alert-danger alert-hsbc">
-				  		<button class="close" type="button" data-dismiss="alert">&times;</button>
-						<img src="/payroll-agenda/statics/images/errorsCritical.gif" style=" width: 45px;">
-						<span>&nbsp;&nbsp;&nbsp;${error}</span>
-					</div>
-				</c:if>
+		$("#lm-link-agenda").click(function (){
+			messages.openLoading();
+			closeLeftContent();
+			activities_form.attr('action', '/payroll-agenda/homeAgenda');
+			activities_form.submit();
+		});
+		$("#btn-save-agenda").click(function (){
+			messages.openLoading();
+			closeRightContent();
+			agenda_form.attr('action', '/payroll-agenda/agendar');
+			agenda_form.submit();
+		});
+		
+    });
+    </script>
+	</head>
+	<body class="basic-template std-back">
+		<main id="container" class="container">
+			<section class="row ma-block">
+				<div class="col s12 col-block">
+					
+					<div class="nav">
+						<div id="burger" class="burger">
+							<div></div>  
+							<div></div>
+							<div></div>
+						</div>
 
-				<div style="padding: 30px 30px 0px;" class="whitetop shadow" >
-					<div style="padding:0px 15px 0px 15px">
-							<ul class="nav nav-tabs">
-								<li class="active "><a aria-expanded="true" href="#" onclick="document.forms['formCompany'].action='/payroll-agenda/startVisit'; document.forms['formCompany'].submit();">Nominahabientes</a></li>
-								<li class = "noactive"><a aria-expanded="false" href="#" data-toggle="tab">Información de la Empresa</a></li>
-								<li class = "noactive"><a aria-expanded="false" href="#" data-toggle="tab">Reagendar Visita</a></li>
-								<li class = "noactive"><a aria-expanded="false" href="#" data-toggle="tab">Reporte</a></li>
-							</ul>
+						<div class="side-logo">
+							<img class="responsive-img" src="/payroll-agenda/statics/images/tablet/logo-hsbc.png" alt="">
+						</div>
+
+						<div class="right-help">
+							<i class="icon icon-notifications"></i>
+						</div>
 					</div>
-					<div id="nominaHabientes">
-						<div class="form-group">
-							<div class="input-group">
-								<span class="algo input-group-addon">
-									<img style="max-width: 50px;" class="img-responsive"
-										src="/payroll-agenda/statics/images/tablet/look.png" />
-								</span>
-								<input
-									style="position: static; border-radius: 25px; padding: 0 40px; margin-top: 12px !important; margin-left: -50px !important;"
-									class="form-control searchAnimate search" type="text"
-									id="search"
-									placeholder="Escribe el nombre del nominahabiente que estás buscando" />
+
+					<div class="big-white-block">
+						<div class="bwb-heading row">
+							<div class="col s6 bwbh-title">
+								<p class="h2">${nameCompany}</p>                
+							</div>
+							<div class="col s6">
+								<div class="data-write">
+									<div class="input-field">
+										<select id="select-filter"> 
+											<option value="0"  selected>Ver todas</option>
+											<option value="2">Próximas</option>
+											<option value="3">Pendientes</option>
+											<option value="4">Completadas</option>
+											<option value="1">No agendadas</option>	
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="bwb-secondary-i">
+								<i class="icon icon-search"></i>
 							</div>
 						</div>
-						<ul class="list-group list">
-							<c:forEach var="account" items="${lstAccounts}">
-								<li class="list-group-item">
-									<div class="row">
-										<div class="col-sm-6 col-xs-8 ">
-											<p class="name">
-												${account.clientName}
-												<br> <span class="menufont"> Integracion | CTA. ${account.dda}
-												</span>
-											</p>
+
+						<div class="bwb-list-scrollableContainer">
+							<div class="row scrollArea">
+								<form id="activities-form" method="post">
+									<c:if test="${lstAccounts.size() <= 0}">
+										<div class="col s12 empty-state">
+											<p class="h2">No hay empleados agregados a esta empresa</p>
 										</div>
-										<div class="col-sm-2 col-xs-4">${account.status}</div>
-										<div class="col-xs-12 col-sm-4" align="center">${account.link}</div>
-									</div>
-								</li>
-							</c:forEach>
-						</ul>
-						<div class="row" align="center">
-							<ul class="pagination pagination-lg pager" id="pagerTableNominees">
-							</ul>
-						</div>
-					</div>
-					<div class="row" align="center">
-						<ul class="pagination pagination-lg pager" id="pagerTableNominees"></ul>
+									</c:if>	
+									<c:if test="${lstAccounts.size() > 0}">						
+										<table class="table">
+											<thead>
+												<tr class="col s12 bwb-subtitle">
+													<th>
+														<p class="h4">A - M</p>
+													</th>
+												</tr>
+											<thead>
+											<tbody>
+												<c:forEach var="company" items="${lstCompanies}">
+					        						<tr class="staVisit ${company.staVisit}">
+														<th class="col s12 bwb-lineblock">
+															<div class="row">
+																<div class="col s8 lb-left">
+																	<c:if test="${company.descStatus.equals('No Agendada')}"> <!-- 1 -->
+																		<div class="lb-circle c-yellow">
+																			<i class="icon icon-error-1"></i>
+																		</div>
+																	</c:if>
+																	<c:if test="${company.descStatus.equals('Agendada')}"> <!-- 2 -->
+																		<div class="lb-circle c-blue">
+																			<i class="icon icon-today"></i>
+																		</div>
+																	</c:if>
+																	<c:if test="${company.descStatus.equals('Pendiente')}"> <!-- 3 -->
+																		<div class="lb-circle c-red">
+																			<i class="icon icon-error-1"></i>
+																		</div> 
+																	</c:if>
+																	<c:if test="${company.descStatus.equals('Completada')}"> <!-- 4 -->
+																		<div class="lb-circle c-green">
+																			<i class="icon icon-done"></i>
+																		</div>
+																	</c:if>
+																	<div class="lb-leyend">
+																		<p class="h4">${company.companyName}</p>
+																		<p class="lb-descripton">${company.noteCompany}</p>
+																	</div>
+																</div>
+																<div class="col s4 lb-right">
+																	<c:if test="${!company.descStatus.equals('Completada')}">
+																		<div class="lb-location">
+																			<i class="icon icon-address"></i>
+																		</div>
+																	</c:if>
+																	<c:if test="${company.descStatus.equals('No Agendada')}">
+																		<div id="btn-agenda-visita" class="cont-btn">
+																			<a class="btn small line" >Agendar visita</a>
+																		</div>
+																	</c:if>
+																	<c:if test="${company.descStatus.equals('Agendada')}">
+																		<div id="btn-comenzar-visita"  class="cont-btn">
+																			<a class="btn small blue">Comenzar visita</a>
+																		</div>
+																	</c:if>
+																	<c:if test="${company.descStatus.equals('Pendiente')}">
+																		<div id="btn-continuar-visita" class="cont-btn">
+																			<a class="btn small">Continuar visita</a>
+																		</div>
+																	</c:if>
+																	<c:if test="${company.descStatus.equals('Completada')}">
+																		<div id="btn-ver-informe" class="cont-btn">
+																			<a class="btn small green" href="#">Ver informe</a>
+																		</div>
+																	</c:if>
+																</div>
+															</div>
+															<hr class="two"><hr class="one">
+														</th>
+													</tr>
+												</c:forEach>
+											<tbody>								
+										</table>
+									</c:if>
+								</form>
+							</div>
+						</div>           
 					</div>
 				</div>
+			</section>
+		</main>
+		<div id="left-white-shadow" class="left-white-shadow" ></div>
+  		  
+		<section id="left-menu" class="left-menu"> 
+			<div id="lm-dark-cont" class="lm-dark-cont">
+				<div class="lm-up">
+					<div id="lm-close" class="lm-close">
+						<i class="icon icon-error"></i>
+					</div>
+					<div class="lm-logo">
+						<img src="/payroll-agenda/statics/images/tablet/logo-hsbc-white.png">
+					</div>
+				</div>
+				<div class="lm-middle">
+					<ul class="lm-list">
+						<li>
+							<a id="lm-link-agenda" class="lm-link">
+								<i class="icon icon-today"></i>
+								<span>Mi agenda y actividades</span>
+							</a>
+						</li>
+						<li>
+							<a href="" class="lm-link">
+								<i class="icon icon-twins"></i>
+								<span>Mi perfil</span>
+							</a>
+						</li>
+						<li>
+							<a href="" class="lm-link">
+								<i class="icon icon-graduate"></i>
+								<span>Mis cursos y capacitaciones</span>
+							</a>
+						</li>
+						<li>
+							<a href="" class="lm-link">
+								<i class="icon icon-help"></i>
+								<span>Ayuda y soporte</span>
+							</a>
+						</li>
+						<li>
+							<a href="" class="lm-link">
+								<i class="icon icon-notifications"></i>
+								<span>Notificaciones</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div id="lm-down" class="lm-down" >
+					<ul class="lm-list">
+						<li>
+							<a class="lm-link">
+								<i class="icon icon-logout-1"></i>
+								<span>Cerrar sesión</span> 
+							</a>
+						</li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	</div>
-
-	<input type="hidden" id="account" name="account">
-	<input type="hidden" id="nameClient" name="nameClient">
-	<input type="hidden" id="nameCompany" name="nameCompany" value="${nameCompany}">
-	<input type="hidden" id="keyVisit" name="keyVisit" value="${keyVisit}">
-</form>
-
-<input type="hidden" id="regsXPage" name="regsXPage" value="${regsXPage}">
-
-<div class="modal" id="spinner" data-backdrop="static"
-    data-keyboard="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Procesando</h3>
-            </div>
-            <div class="modal-body">
-                <p>Su petición está siendo atendida.</p>
-                <div class="progress progress-striped active ">
-                    <div class="progress-bar progress-bar-danger" style="width:120%">
-                      
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-<%@ include file="modal.jsp" %>
-<ul id="slide-out" class="side-nav">
-	<li>
-		<div class="user-view">
-			<a href="#!"><button class="close" type="button" data-dismiss="alert">&times;</button></a>
-			<div class="background">
-				<img src="/payroll-agenda/statics/images/Fondo.png">
-			</div>
-			<a href="#!user"><img class="circle" src="/payroll-agenda/statics/images/tablet/LogoBlue2.png"></a>
-
-		</div>
-	</li>
-		<li><a class="waves-effect" href="#!" onclick="document.forms['formCompany'].action = '/payroll-agenda/homeAgenda'; document.forms['formCompany'].submit();">
-			<i class="material-icons">today</i>Mi Agenda y Actividades
-		</a></li>
-		<li><a class="waves-effect noactive" href="#!"><i class="material-icons">account_circle</i>Mi Perfil </a></li>
-		<li><a class="waves-effect noactive" href="#!"><i class="material-icons">touch_app</i>Mis cursos y capacitaciones </a></li>
-		<li><a class="waves-effect noactive" href="#!"><i class="material-icons">question_answer</i>Ayuda y soporte  </a></li>
-		<li><a class="waves-effect" href="#!" onclick="document.forms['formCompany'].action = '/payroll-agenda/exitAgenda'; document.forms['formCompany'].submit();" >
-			<i class="material-icons">exit_to_app</i>Cerrar sesión  
-		</a></li>
- </ul>
-</body>
-</html> 
+		</section>
+    	<%@ include file="messages.jsp" %>
+	</body>
+</html>

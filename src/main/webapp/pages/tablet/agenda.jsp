@@ -21,25 +21,13 @@
     <script src="/payroll-agenda/statics/js/jquery-1.12.4.js"></script>
     <script>
     $(document).ready(function() {
-    	body = $("#body");
-    	container = $("#container");
-    	burger=$("#burger");
-    	left_white_shadow=$('#left-white-shadow');	
-    	left_menu=$('#left-menu');
-    	lm_close=$("#lm-close");
-    	
-    	btn_agenda_visita=$("#btn-agenda-visita");
-    	right_black_shadow=$('#right-black-shadow');
-    	r_content=$('#r-content');
-    	rch_close=$("#rch-close");
-    	agenda_form=$("#agenda-form");
     	
     	$('#select-filter').change(function(){
 			var option, staVisit = ".staVisit" ;
 			$( "#select-filter option:selected" ).each(function() {
 				option = $( this ).val();
 			    });
-			if (option==0){
+			if (option=="T"){
 				$ (staVisit).each(function (){
 					$(this).show();
 				});
@@ -51,48 +39,46 @@
 			}
 		})
 
-    	burger.click(function (){;
-    		left_white_shadow.animate({width:"100%"},0);
-			left_menu.animate({left:'0px'},50);	
-		});
+    	$("#burger").click(openLeftMenu);
 		
-		var closeLeftContent = function (){
-			
-			left_white_shadow.animate({width:"0"},0);
-			left_menu.animate({left:'-340px'},0);
-		}
-		left_white_shadow.click(closeLeftContent);
-		lm_close.click(closeLeftContent);
+    	openRightAgenda = function (companyName,keyVisit,proposedDate){
+    		$("#companyNameTittle").text(unescape(companyName));
+    		$("#companyName").val(unescape(companyName));
+    		$("#datepicker").attr("placeholder","Fecha propuesta: "+proposedDate)
+    		$("#keyVisit").val(unescape(keyVisit));
+    		$('#right-black-shadow').animate({width:"100%"},0);
+			$('#r-content').animate({right:'0px'},50);
+    	};
 		
-		btn_agenda_visita.click(function (){
-			right_black_shadow.animate({width:"100%"},0);
-			r_content.animate({right:'0px'},50);
-		});
+		var closeRightAgenda = function (){
+			$('#right-black-shadow').animate({width:"0"},0);
+			$('#r-content').animate({right:'-500px'},50);
+		};
 		
-		var closeRightContent = function (){
-			right_black_shadow.animate({width:"0"},0);
-			r_content.animate({right:'-500px'},50);
-		}
-		right_black_shadow.click(closeRightContent);
-		rch_close.click(closeRightContent);
+		$('#right-black-shadow').click(closeRightAgenda);
+		$("#rch-close").click(closeRightAgenda);
 		
-		$("#lm-down").click(function (){
+		$("#btn-save-agenda").click(function (){
 			messages.openLoading();
-			agenda_form.attr('action', '/payroll-agenda/exitAgenda');
-			agenda_form.submit();
+			$("#agenda-form").attr('action', '/payroll-agenda/agendar');
+			$("#agenda-form").submit();
 		});
 		
-		$("#lm-link-agenda").click(function (){
+		openStarVisit = function (){
+			$("#hours").val($("#timepicker").substring(0, 1));
+			$("#minutes").val($("#timepicker").substring(3, 4));
+			$("#ampm").val($("#timepicker").substring(5, 6));
 			messages.openLoading();
-			closeLeftContent();
-			agenda_form.attr('action', '/payroll-agenda/homeAgenda');
-			agenda_form.submit();
-		});
-		
+			$("#activities-form").attr('action', '/payroll-agenda/startVisit');
+			$("#activities-form").submit();
+		};
+	
+		$("#btn-continuar-visita").click(openStarVisit);
+		$("#btn-comenzar-visita").click(openStarVisit);
     });
     </script>
 	</head>
-	<body class="misact std-back">
+	<body class="basic-template std-back">
 		<main id="container" class="container">
 			<section class="row ma-block">
 				<div class="col s12 col-block">
@@ -122,11 +108,12 @@
 								<div class="data-write">
 									<div class="input-field">
 										<select id="select-filter"> 
-											<option value="0"  selected>Ver todas</option>
-											<option value="2">Próximas</option>
-											<option value="3">Pendientes</option>
-											<option value="4">Completadas</option>
-											<option value="1">No agendadas</option>	
+											<option value="T"  selected>Ver todas</option>
+											<option value="0">No agendadas</option>
+											<option value="1">Agendadas</option>
+											<option value="2">Pendientes</option> 
+											<option value="3">Imagenes Pendientes</option>  
+											<option value="4">Completadas</option>	
 										</select>
 									</div>
 								</div>
@@ -138,10 +125,10 @@
 
 						<div class="bwb-list-scrollableContainer">
 							<div class="row scrollArea">
-								<form id="agenda-form" method="post">
+								<form id="activities-form" method="post">
 									<c:if test="${countCompanies <= 0}">
 										<div class="col s12 empty-state">
-											<p class="h2">No tienes actividades o empresas dadas de alta.</p>
+											<p class="h2">No tienes actividades o empresas dadas de alta</p>
 										</div>
 									</c:if>	
 									<c:if test="${countCompanies > 0}">						
@@ -149,7 +136,7 @@
 											<thead>
 												<tr class="col s12 bwb-subtitle">
 													<th>
-														<p class="h4">A - M</p>
+														<p class="h4"></p>
 													</th>
 												</tr>
 											<thead>
@@ -159,22 +146,27 @@
 														<th class="col s12 bwb-lineblock">
 															<div class="row">
 																<div class="col s8 lb-left">
-																	<c:if test="${company.descStatus.equals('No Agendada')}"> <!-- 1 -->
+																	<c:if test="${company.staVisit == 0}"> <!-- 0 - No Agendada -->
 																		<div class="lb-circle c-yellow">
 																			<i class="icon icon-error-1"></i>
 																		</div>
 																	</c:if>
-																	<c:if test="${company.descStatus.equals('Agendada')}"> <!-- 2 -->
+																	<c:if test="${company.staVisit == 1}"> <!-- 1 - Agendada -->
 																		<div class="lb-circle c-blue">
 																			<i class="icon icon-today"></i>
 																		</div>
 																	</c:if>
-																	<c:if test="${company.descStatus.equals('Pendiente')}"> <!-- 3 -->
+																	<c:if test="${company.staVisit == 2}"> <!-- 2 - Pendiente -->
 																		<div class="lb-circle c-red">
 																			<i class="icon icon-error-1"></i>
 																		</div> 
 																	</c:if>
-																	<c:if test="${company.descStatus.equals('Completada')}"> <!-- 4 -->
+																	<c:if test="${company.staVisit == 3}"> <!-- 3 - Imagen Pendiente -->
+																		<div class="lb-circle c-black-red">
+																			<i class="icon icon-cloud-upload"></i>
+																		</div> 
+																	</c:if>
+																	<c:if test="${company.staVisit == 4}"> <!-- 4 - Completada-->
 																		<div class="lb-circle c-green">
 																			<i class="icon icon-done"></i>
 																		</div>
@@ -185,29 +177,34 @@
 																	</div>
 																</div>
 																<div class="col s4 lb-right">
-																	<c:if test="${!company.descStatus.equals('Completada')}">
+																	<c:if test="${company.staVisit != 4}">
 																		<div class="lb-location">
 																			<i class="icon icon-address"></i>
 																		</div>
 																	</c:if>
-																	<c:if test="${company.descStatus.equals('No Agendada')}">
-																		<div id="btn-agenda-visita" class="cont-btn">
+																	<c:if test="${company.staVisit == 0}">
+																		<div  class="cont-btn" onclick="openRightAgenda('${company.companyName}','${company.cveVisit}','${company.proposedDate}');">
 																			<a class="btn small line" >Agendar visita</a>
 																		</div>
 																	</c:if>
-																	<c:if test="${company.descStatus.equals('Agendada')}">
+																	<c:if test="${company.staVisit == 1}">
 																		<div id="btn-comenzar-visita"  class="cont-btn">
 																			<a class="btn small blue">Comenzar visita</a>
 																		</div>
 																	</c:if>
-																	<c:if test="${company.descStatus.equals('Pendiente')}">
+																	<c:if test="${company.staVisit == 2}">
 																		<div id="btn-continuar-visita" class="cont-btn">
-																			<a class="btn small">Continuar visita</a>
+																			<a class="btn small red">Continuar visita</a>
 																		</div>
 																	</c:if>
-																	<c:if test="${company.descStatus.equals('Completada')}">
+																	<c:if test="${company.staVisit == 3}">
+																		<div id="btn-continuar-visita" class="cont-btn">
+																			<a class="btn small black-red">Finalizar Imagen</a>
+																		</div>
+																	</c:if>
+																	<c:if test="${company.staVisit == 4}">
 																		<div id="btn-ver-informe" class="cont-btn">
-																			<a class="btn small green" href="employee.html">Ver informe</a>
+																			<a class="btn small green">Ver informe</a>
 																		</div>
 																	</c:if>
 																</div>
@@ -226,64 +223,8 @@
 				</div>
 			</section>
 		</main>
-		<div id="left-white-shadow" class="left-white-shadow" ></div>
-  		  
-		<section id="left-menu" class="left-menu"> 
-			<div id="lm-dark-cont" class="lm-dark-cont">
-				<div class="lm-up">
-					<div id="lm-close" class="lm-close">
-						<i class="icon icon-error"></i>
-					</div>
-					<div class="lm-logo">
-						<img src="/payroll-agenda/statics/images/tablet/logo-hsbc-white.png">
-					</div>
-				</div>
-				<div class="lm-middle">
-					<ul class="lm-list">
-						<li>
-							<a id="lm-link-agenda" class="lm-link">
-								<i class="icon icon-today"></i>
-								<span>Mi agenda y actividades</span>
-							</a>
-						</li>
-						<li>
-							<a href="" class="lm-link">
-								<i class="icon icon-twins"></i>
-								<span>Mi perfil</span>
-							</a>
-						</li>
-						<li>
-							<a href="" class="lm-link">
-								<i class="icon icon-graduate"></i>
-								<span>Mis cursos y capacitaciones</span>
-							</a>
-						</li>
-						<li>
-							<a href="" class="lm-link">
-								<i class="icon icon-help"></i>
-								<span>Ayuda y soporte</span>
-							</a>
-						</li>
-						<li>
-							<a href="" class="lm-link">
-								<i class="icon icon-notifications"></i>
-								<span>Notificaciones</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-				<div id="lm-down" class="lm-down" >
-					<ul class="lm-list">
-						<li>
-							<a class="lm-link">
-								<i class="icon icon-logout-1"></i>
-								<span>Cerrar sesión</span> 
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</section>
+		
+		<%@ include file="menu.jsp" %>
 		
 		<div id="right-black-shadow" class="right-black-shadow"></div>
 		
@@ -295,89 +236,109 @@
 					</div>
 					<div class="rch-title">
 						<p class="t-type">Agendar visita</p>
-						<p class="t-leyend">Incrementa Consulting S.A. de C.V.</p>
+						<p id="companyNameTittle" class="t-leyend"/>
 					</div>
 				</div>
+				
 				<div class="rc-info">
-					<form class="rci-form">
-						
+					<form id="agenda-form" class="rci-form" method="post">
 						<div class="row">
 							<div class="col s12 rci-title">
-								<p>Fecha y hora propuestas</p>
-							</div>
-							<hr class="col s12">
-							<div class="col s6">
-								<div class="data-write rci-date">
-									<div class="input-field">
-										<input class="datepicker" type="text" maxlength="10" minlength="10" placeholder="Fecha">
-									</div>
-								</div>
-							</div>
-							<div class="col s6">
-								<div class="data-write rci-hour">
-									<div class="input-field">
-										<input class="timepicker" type="text" maxlength="10" minlength="10" placeholder="Hora">
-									</div>
-								</div>
-							</div>
-							<div class="col s12 rci-title">
-								<p>Ubicación</p>
+								<p>Fecha</p>
+<!-- 						 	<p>Fecha y hora propuestas</p> -->
 							</div>
 							<hr class="col s12">
 							<div class="col s12">
 								<div class="data-write rci-date">
 									<div class="input-field">
-										<input type="text" maxlength="10" minlength="10" placeholder="Dirección">
+										<input class="datepicker" id="datepicker" name="datepicker" type="text" maxlength="10" minlength="10" placeholder="Fecha">
+									</div>
+								</div>
+							</div>
+<!-- 							<div class="col s6"> -->
+<!-- 								<div class="data-write rci-hour"> -->
+<!-- 									<div class="input-field"> -->
+<!-- 										<input class="timepicker" type="text" maxlength="10" minlength="10" placeholder="Hora"> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+							<div class="col s12 rci-title">
+<!-- 							<p>Ubicación</p> -->
+								<p>Tiempo</p>
+							</div>
+							 <hr class="col s12">
+<!-- 							<div class="col s12"> -->
+<!-- 								<div class="data-write rci-date"> -->
+<!-- 									<div class="input-field"> -->
+<!-- 										<input type="text" maxlength="10" minlength="10" placeholder="Dirección"> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+							<div class="col s12">
+								<div class="data-write rci-hour">
+									<div class="input-field">
+										<input class="timepicker" id="timepicker" name="timepicker" type="text" maxlength="10" minlength="10" placeholder="Hora">
 									</div>
 								</div>
 							</div>
 							
 							<div class="col s12 cont-btn">
-								<a href="#" class="btn little red">Guardar</a>
+								<a id="btn-save-agenda" class="btn little red">Guardar</a>
 							</div>
 						</div>
-					</form>
-				<div class="rci-title">
-					<p>Datos de contacto para agendar visita</p>
-				</div>
-				<hr>
-				<div class="data-write">
-					<p class="rci-subtext">Contacto en la empresa</p>
-					<p class="rci-text">Gaël Thome</p>
-				</div>
-				<div class="data-write">
-				<p class="rci-subtext">Teléfono:</p>
-				<p class="rci-text">044(55)1234-1234</p>
-				</div>
-				<div class="data-write">
-				<p class="rci-subtext">Cuentas:</p>
-				<p class="rci-text">Multiplica México</p>
-				</div>
-				</div>
+	                    <input type="hidden" id="keyVisit" name="keyVisit">
+						<input type="hidden" id="hours" name="hours">
+						<input type="hidden" id="minutes" name="minutes">
+						<input type="hidden" id="ampm" name="ampm">
+						<input type="hidden" id="" name="ampm">
+<!-- 				<div class="rci-title"> -->
+<!-- 					<p>Datos de contacto para agendar visita</p> -->
+<!-- 				</div> -->
+<!-- 				<hr> -->
+<!-- 				<div class="data-write"> -->
+<!-- 					<p class="rci-subtext">Contacto en la empresa</p> -->
+<!-- 					<input type="text" class="input-text-info" id="nombreContacto" name="nombreContacto" readonly="readonly"/> -->
+<!-- 				</div> -->
+<!-- 				<div class="data-write"> -->
+<!-- 					<p class="rci-subtext">Teléfono:</p> -->
+<!-- 					<input type="text" class="input-text-info" id="telefonoContacto" name="telefonoContacto" readonly="readonly"/> -->
+<!-- 				</div> -->
+<!-- 				<div class="data-write"> -->
+<!-- 					<p class="rci-subtext">Cuentas:</p> -->
+<!-- 					<input type="text" class="input-text-info" id="cuenta" name="cuenta" readonly="readonly"> -->
+<!-- 				</div> -->
+				</form>
 			</div>
-		</section>
+		</div>
+	</section>
 		<script src="/payroll-agenda/statics/js/vendors.min.js"></script>
     	<script src="/payroll-agenda/statics/js/main.min.js"></script>
     	<script src="/payroll-agenda/statics/js/vendors/materialize.clockpicker.js"></script>
     	<script>
     	$('.datepicker').pickadate({
-    	    selectMonths: true, // Creates a dropdown to control month
-    	    selectYears: 15, // Creates a dropdown of 15 years to control year,
+//     	    selectMonths: true, // Creates a dropdown to control month
+//     	    selectYears: 15, // Creates a dropdown of 15 years to control year,
     	    today: 'Today',
-    	    clear: 'Clear',
-    	    close: 'Ok',
+    	    format : 'dd/mm/yyyy',
+    	    clear: 'Limpiar',
+    	    close: 'Listo',
+    	    minDate : new Date(), 
+			time: false,
     	    closeOnSelect: false // Close upon selecting a date,
     	});
     	$('.timepicker').pickatime({
-	    	time: 'now', 
 	        fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-	        twelvehour: false, // Use AM/PM or 24-hour format
-	        donetext: 'OK', // text for done-button
+	        twelvehour: true, // Use AM/PM or 24-hour format
+	        interval: 15,
+	        donetext: 'Listo', // text for done-button
 	        cleartext: 'Clear', // text for clear-button
 	        canceltext: 'Cancel', // Text for cancel-button
 	        autoclose: false, // automatic close timepicker
-	        ampmclickable: true, // make AM PM clickable
-	        aftershow: function(){} //Function for after opening timepicker
+	        ampmclickable: false, // make AM PM clickable
+	        disable: [
+	            3, 5, 7
+	          ],
+	        onSet: function(){} //Function for after opening timepicker
       });
     	</script>
     	<%@ include file="messages.jsp" %>
