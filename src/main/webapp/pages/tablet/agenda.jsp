@@ -15,7 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>HSBC</title>
     <link rel="shortcut icon" 	href="/payroll-agenda/statics/images/tablet/favicon.ico">
-    <link rel="stylesheet" 		href="/payroll-agenda/statics/css/vendors/materialize.clockpicker.css">
+    <link rel="stylesheet" 		href="/payroll-agenda/statics/css/vendors/default.css">
+    <link rel="stylesheet" 		href="/payroll-agenda/statics/css/vendors/default.time.css">
     <link rel="stylesheet" 		href="/payroll-agenda/statics/css/style.css">
  
     <script src="/payroll-agenda/statics/js/jquery-1.12.4.js"></script>
@@ -313,7 +314,9 @@
 	</section>
 		<script src="/payroll-agenda/statics/js/vendors.min.js"></script>
     	<script src="/payroll-agenda/statics/js/main.min.js"></script>
-    	<script src="/payroll-agenda/statics/js/vendors/materialize.clockpicker.js"></script>
+    	<script src="/payroll-agenda/statics/js/vendors/picker.js"></script>
+    	<script src="/payroll-agenda/statics/js/vendors/picker.time.js"></script>
+    	<script src="/payroll-agenda/statics/js/vendors/legacy.js"></script>
     	<script>
     	$('.datepicker').pickadate({
 //     	    selectMonths: true, // Creates a dropdown to control month
@@ -335,9 +338,6 @@
 	        canceltext: 'Cancel', // Text for cancel-button
 	        autoclose: false, // automatic close timepicker
 	        ampmclickable: false, // make AM PM clickable
-	        disable: [
-	            3, 5, 7
-	          ],
 	        onSet: function(){} //Function for after opening timepicker
       });
     	</script>
