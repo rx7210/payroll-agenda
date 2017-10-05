@@ -221,7 +221,15 @@ public class AgendaController extends Utils {
     public final ModelAndView agendar(final HttpSession httpSession, final HttpServletRequest request) {
         this.mav = new ModelAndView("tablet/agenda");
         try {
-        	final User user = (User) httpSession.getAttribute("user");	
+        	final User user = (User) httpSession.getAttribute("user");
+        	
+        	System.out.println("*******************************  /agendar nameCompany:" + request.getParameter("nameCompany"));
+        	System.out.println("*******************************  /agendar keyVisit:" + request.getParameter("keyVisit"));
+        	System.out.println("*******************************  /agendar datepicker:" + request.getParameter("datepicker"));
+        	System.out.println("*******************************  /agendar hours:" + request.getParameter("hours"));
+        	System.out.println("*******************************  /agendar minutes:" + request.getParameter("minutes"));
+        	System.out.println("*******************************  /agendar ampm:" + request.getParameter("ampm"));
+        	
 //	        final String nameCompany = request.getParameter("nameCompany");
 //	        final String keyVisit = request.getParameter("keyVisit");
 //	        final String date = request.getParameter("datepicker");
@@ -299,10 +307,11 @@ public class AgendaController extends Utils {
         this.mav = new ModelAndView("tablet/company");
         try {
 //	        final User user = (User) httpSession.getAttribute("user");
-//	        String keyVisit = request.getParameter("keyVisit");
-        	String keyVisit = "1";
-//	        String nameCompany = request.getParameter("nameCompany");
-        	String nameCompany = "Nombre de la compañia";
+	        String keyVisit = request.getParameter("keyVisit");
+	        String nameCompany = request.getParameter("nameCompany");
+	        System.out.println("*******************************  /startVisit nameCompany:" + request.getParameter("nameCompany"));
+        	System.out.println("*******************************  /startVisit keyVisit:" + request.getParameter("keyVisit"));
+        	
 //	
 //	        if (StringUtils.isBlank(keyVisit) || StringUtils.isBlank(nameCompany)) {
 //	            keyVisit = (String) httpSession.getAttribute("keyVisit");
@@ -313,10 +322,13 @@ public class AgendaController extends Utils {
 //	        if (1 == valor) {
 //	            log(user, "Inicia visita Empresa " + nameCompany);
 //	
-////	            this.agendaService.pendingVisit(keyVisit, nameCompany, user.getUserId());  //Irving
+// 	            this.agendaService.pendingVisit(keyVisit, nameCompany, user.getUserId());  //Irving
 //	        }
 	
 	        List<Accounts> dataList = new ArrayList<Accounts>();
+	        MockGeneration mockGeneration = new MockGeneration();
+	        dataList = mockGeneration.getAccounts();
+	        
 //	        dataList = this.agendaService.accountsCompany(user.getUserId(), keyVisit);  //Irving
 	
 	        this.mav.addObject("regsXPage", pagination());

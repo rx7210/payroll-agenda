@@ -15,7 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title>HSBC</title>
     <link rel="shortcut icon" 	href="/payroll-agenda/statics/images/tablet/favicon.ico">
-    <link rel="stylesheet" 		href="/payroll-agenda/statics/css/vendors/materialize.clockpicker.css">
     <link rel="stylesheet" 		href="/payroll-agenda/statics/css/style.css">
  
     <script src="/payroll-agenda/statics/js/jquery-1.12.4.js"></script>
@@ -122,10 +121,13 @@
 
 					<div class="big-white-block">
 						<div class="bwb-heading row">
-							<div class="col s6 bwbh-title">
+							<div class="col s8 bwbh-title-arrow">
+								<a href="" class="bwb-goback">
+				                  <i class="icon icon-arrow-back"></i>
+				                </a>
 								<p class="h2">${nameCompany}</p>                
 							</div>
-							<div class="col s6">
+							<div class="col s4 bwbh-search">
 								<div class="data-write">
 									<div class="input-field">
 										<select id="select-filter"> 
@@ -156,74 +158,59 @@
 											<thead>
 												<tr class="col s12 bwb-subtitle">
 													<th>
-														<p class="h4">A - M</p>
+														<p class="h4">A</p>
 													</th>
 												</tr>
 											<thead>
 											<tbody>
-												<c:forEach var="company" items="${lstCompanies}">
-					        						<tr class="staVisit ${company.staVisit}">
-														<th class="col s12 bwb-lineblock">
+												<c:forEach var="account" items="${lstAccounts}">
+					        						<tr class="">
+														<th class="col s12 comp-lineblock">
 															<div class="row">
-																<div class="col s8 lb-left">
-																	<c:if test="${company.descStatus.equals('No Agendada')}"> <!-- 1 -->
-																		<div class="lb-circle c-yellow">
-																			<i class="icon icon-error-1"></i>
-																		</div>
-																	</c:if>
-																	<c:if test="${company.descStatus.equals('Agendada')}"> <!-- 2 -->
-																		<div class="lb-circle c-blue">
-																			<i class="icon icon-today"></i>
-																		</div>
-																	</c:if>
-																	<c:if test="${company.descStatus.equals('Pendiente')}"> <!-- 3 -->
-																		<div class="lb-circle c-red">
-																			<i class="icon icon-error-1"></i>
-																		</div> 
-																	</c:if>
-																	<c:if test="${company.descStatus.equals('Completada')}"> <!-- 4 -->
-																		<div class="lb-circle c-green">
-																			<i class="icon icon-done"></i>
-																		</div>
-																	</c:if>
+																<div class="col s12 lb-left">
 																	<div class="lb-leyend">
-																		<p class="h4">${company.companyName}</p>
-																		<p class="lb-descripton">${company.noteCompany}</p>
+																		<p class="h4">${account.clientName}</p>
+																		<p class="lb-descripton">Integracion | CTA. ${account.dda}</p>
 																	</div>
-																</div>
-																<div class="col s4 lb-right">
-																	<c:if test="${!company.descStatus.equals('Completada')}">
-																		<div class="lb-location">
-																			<i class="icon icon-address"></i>
-																		</div>
-																	</c:if>
-																	<c:if test="${company.descStatus.equals('No Agendada')}">
-																		<div id="btn-agenda-visita" class="cont-btn">
-																			<a class="btn small line" >Agendar visita</a>
-																		</div>
-																	</c:if>
-																	<c:if test="${company.descStatus.equals('Agendada')}">
-																		<div id="btn-comenzar-visita"  class="cont-btn">
-																			<a class="btn small blue">Comenzar visita</a>
-																		</div>
-																	</c:if>
-																	<c:if test="${company.descStatus.equals('Pendiente')}">
-																		<div id="btn-continuar-visita" class="cont-btn">
-																			<a class="btn small">Continuar visita</a>
-																		</div>
-																	</c:if>
-																	<c:if test="${company.descStatus.equals('Completada')}">
-																		<div id="btn-ver-informe" class="cont-btn">
-																			<a class="btn small green" href="#">Ver informe</a>
-																		</div>
-																	</c:if>
+																	<div class="lb-circle c-yellow">
+																		<i class="icon icon-error-1"></i>
+																	</div>
+																	<div class="lb-description">
+																		<p class="h5">Esperando respuesta por parte del integrador</p>
+																	</div>
 																</div>
 															</div>
 															<hr class="two"><hr class="one">
 														</th>
 													</tr>
 												</c:forEach>
-											<tbody>								
+												<tr class="">
+														<th class="col s12 comp-lineblock">
+															<div class="row">
+																<div class="col s8 lb-left">
+																	<div class="lb-leyend-with-btn">
+																		<p class="h4">Nombre</p>
+																		<p class="lb-descripton">Integracion | CTA. 2412341234123412</p>
+																	</div>
+																	<div class="lb-circle c-blue">
+																		<i class="icon icon-content"></i>
+																	</div>
+																	<div class="lb-description">
+																		<p class="h5">Activo</p>
+																	</div>
+																</div>
+																<div class="col s4 lb-right">
+																	<div class="lb-location">
+																		<i class="icon icon-address"></i>
+																	</div>
+																	<div  class="cont-btn">
+																		<a class="btn small blue" >Inicar integración</a>
+																	</div>
+																</div>
+															</div>
+														</th>
+													</tr>
+											</tbody>								
 										</table>
 									</c:if>
 								</form>
@@ -232,65 +219,10 @@
 					</div>
 				</div>
 			</section>
+			<script src="/payroll-agenda/statics/js/vendors.min.js"></script>
+    		<script src="/payroll-agenda/statics/js/main.min.js"></script>
 		</main>
-		<div id="left-white-shadow" class="left-white-shadow" ></div>
-  		  
-		<section id="left-menu" class="left-menu"> 
-			<div id="lm-dark-cont" class="lm-dark-cont">
-				<div class="lm-up">
-					<div id="lm-close" class="lm-close">
-						<i class="icon icon-error"></i>
-					</div>
-					<div class="lm-logo">
-						<img src="/payroll-agenda/statics/images/tablet/logo-hsbc-white.png">
-					</div>
-				</div>
-				<div class="lm-middle">
-					<ul class="lm-list">
-						<li>
-							<a id="lm-link-agenda" class="lm-link">
-								<i class="icon icon-today"></i>
-								<span>Mi agenda y actividades</span>
-							</a>
-						</li>
-						<li>
-							<a href="" class="lm-link">
-								<i class="icon icon-twins"></i>
-								<span>Mi perfil</span>
-							</a>
-						</li>
-						<li>
-							<a href="" class="lm-link">
-								<i class="icon icon-graduate"></i>
-								<span>Mis cursos y capacitaciones</span>
-							</a>
-						</li>
-						<li>
-							<a href="" class="lm-link">
-								<i class="icon icon-help"></i>
-								<span>Ayuda y soporte</span>
-							</a>
-						</li>
-						<li>
-							<a href="" class="lm-link">
-								<i class="icon icon-notifications"></i>
-								<span>Notificaciones</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-				<div id="lm-down" class="lm-down" >
-					<ul class="lm-list">
-						<li>
-							<a class="lm-link">
-								<i class="icon icon-logout-1"></i>
-								<span>Cerrar sesión</span> 
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</section>
+		<%@ include file="menu.jsp" %>
     	<%@ include file="messages.jsp" %>
 	</body>
 </html>

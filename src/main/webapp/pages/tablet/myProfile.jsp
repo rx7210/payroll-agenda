@@ -106,121 +106,122 @@
 					<div class="big-white-block">
 						<div class="bwb-heading row">
 							<div class="col s8 bwbh-title">
-								<p class="h2">Mis actividades</p>                
+								<p class="h2">Mi Perfil</p>                
 							</div>
 							<div class="col s4 bwbh-search">
 								<div class="data-write">
-									<div class="input-field">
-										<select id="select-filter"> 
-											<option value="T"  selected>Ver todas</option>
-											<option value="0">No agendadas</option>
-											<option value="1">Agendadas</option>
-											<option value="2">Pendientes</option> 
-											<option value="3">Imagenes Pendientes</option>  
-											<option value="4">Completadas</option>	
-										</select>
-									</div>
+									<!-- boton editar perfil  -->
 								</div>
-							</div>
-							<div class="bwb-secondary-i">
-								<i class="icon icon-search"></i>
 							</div>
 						</div>
 
 						<div class="bwb-list-scrollableContainer">
 							<div class="row scrollArea">
-								<form id="activities-form" method="post">
-									<c:if test="${countCompanies <= 0}">
-										<div class="col s12 empty-state">
-											<p class="h2">No tienes actividades o empresas dadas de alta</p>
-										</div>
-									</c:if>	
-									<c:if test="${countCompanies > 0}">						
+								<form id="my-profile-form" method="post">					
 										<table class="table">
-											<thead>
-												<tr class="col s12 bwb-subtitle">
-													<th>
-														<p class="h4"></p>
-													</th>
-												</tr>
-											<thead>
 											<tbody>
-												<c:forEach var="company" items="${lstCompanies}">
-					        						<tr class="staVisit ${company.staVisit}">
-														<th class="col s12 bwb-lineblock">
-															<div class="row">
-																<div class="col s8 lb-left">
-																	<c:if test="${company.staVisit == 0}"> <!-- 0 - No Agendada -->
-																		<div class="lb-circle c-yellow">
-																			<i class="icon icon-error-1"></i>
-																		</div>
-																	</c:if>
-																	<c:if test="${company.staVisit == 1}"> <!-- 1 - Agendada -->
-																		<div class="lb-circle c-blue">
-																			<i class="icon icon-today"></i>
-																		</div>
-																	</c:if>
-																	<c:if test="${company.staVisit == 2}"> <!-- 2 - Pendiente -->
-																		<div class="lb-circle c-red">
-																			<i class="icon icon-error-1"></i>
-																		</div> 
-																	</c:if>
-																	<c:if test="${company.staVisit == 3}"> <!-- 3 - Imagen Pendiente -->
-																		<div class="lb-circle c-black-red">
-																			<i class="icon icon-cloud-upload"></i>
-																		</div> 
-																	</c:if>
-																	<c:if test="${company.staVisit == 4}"> <!-- 4 - Completada-->
-																		<div class="lb-circle c-green">
-																			<i class="icon icon-done"></i>
-																		</div>
-																	</c:if>
-																	<div class="lb-leyend">
-																		<p class="h4">${company.companyName}</p>
-																		<p class="lb-descripton">${company.noteCompany}</p>
+					        						<tr class="">
+														<th class="col s12 my-profile-lineblock">
+															<div class="row msg-block">
+																<div class="msg-content">
+																	<div class="msg-icon">
+																		<i class="icon icon-personal"></i>
+																	</div>
+																	<div class="msg-description">
+																		<p class="h5 msg-txt">Margarita, no olvides generar el reporte de tus visitas al terminar tu día de trabajo</p>
 																	</div>
 																</div>
-																<div class="col s4 lb-right">
-																	<c:if test="${company.staVisit != 4}">
-																		<div class="lb-location">
-																			<i class="icon icon-address"></i>
+															</div>
+															<div class="row prof-block">
+																<div class="col s8 prof-cont">
+																		<div class="cl-photo"></div>
+																		<div class="cl-desc">
+																			<div>
+																				<p class="h3 prf-name">Margarita Sánchez Robledo<p>
+																			</div>
+																			<div>
+																				<p class="pfr-type">Teléfono</p>
+																				<p class="pfr-desc">(55) 3958 1123</p>
+																			</div>
+																			<div>
+																				<p class="pfr-type">Email</p>
+																				<p class="pfr-desc">margarita.sanchez@hsbc.com.mx</p>
+																			</div>
+																			<div>
+																				<p class="pfr-type">Dirección</p>
+																				<p class="pfr-desc">Cerrada Desierto de los Leones 1520 Colonia San Juan Pescador, 06070 CDMX</p>
+																			</div>
+																			<div>
+																				<p class="pfr-type">POC</p>
+																				<p class="pfr-desc">6375 Interlomas, CDMX</p>
+																			</div>
 																		</div>
-																	</c:if>
-																	<c:if test="${company.staVisit == 0}">
-																		<div  class="cont-btn" onclick="openRightAgenda('${company.companyName}','${company.cveVisit}','${company.proposedDate}');">
-																			<a class="btn small line" >Agendar visita</a>
+																</div>
+																<div class="col s4 pstn-cont">
+																	<div class="pstn-frame">
+																		<div class="pstn-red-circle">
+																			<p class="h2 pstn-num">4</p> 
 																		</div>
-																	</c:if>
-																	<c:if test="${company.staVisit == 1}">
-																		<div id="btn-comenzar-visita"  class="cont-btn" onclick="getStartVisit('${company.companyName}','${company.cveVisit}');">
-																			<a class="btn small blue">Comenzar visita</a>
+																		<p class="h4 pstn-title">!Buen Trabajo¡</p>
+																		<p class="h5 pstn-desc">Esta es la posición 4 de los 130 POC's en toda la República Méxicana</p>
+																	</div>
+																</div>
+															</div>
+															<div class="row rt-block">
+																<div class="col s6">
+																	<div>
+																		<p class="h3 rt-title">Mis Logros</p>
+																	</div>
+																	<div>
+																		<div class="achiv-circle-red">
+																			<i class="icon icon-card icon-white"></i>
 																		</div>
-																	</c:if>
-																	<c:if test="${company.staVisit == 2}">
-																		<div id="btn-continuar-visita" class="cont-btn">
-																			<a class="btn small red">Continuar visita</a>
+																		<div class="achiv-desc">
+																			<p class="h4 num-rate">1,300&nbsp;</p>
+																			<p class="h5 desc-rate">tarjetas integradas</p>
 																		</div>
-																	</c:if>
-																	<c:if test="${company.staVisit == 3}">
-																		<div id="btn-continuar-visita" class="cont-btn">
-																			<a class="btn small black-red">Finalizar Imagen</a>
+																	</div>
+																	<div>
+																		<div class="achiv-circle-red">
+																			<i class="icon icon-today icon-white"></i>
 																		</div>
-																	</c:if>
-																	<c:if test="${company.staVisit == 4}">
-																		<div id="btn-ver-informe" class="cont-btn">
-																			<a class="btn small green">Ver informe</a>
+																		<div class="achiv-desc">
+																			<p class="h4 num-rate">32&nbsp;</p>
+																			<p class="h5 desc-rate">visitas a empresas terminadas</p>
 																		</div>
-																	</c:if>
+																	</div>
+																	<div>
+																		<div class="achiv-circle-red">
+																			<i class="icon icon-opps icon-white"></i>
+																		</div>
+																		<div class="achiv-desc">
+																			<p class="h4 num-rate">14:08&nbsp;</p>
+																			<p class="h5 desc-rate">es tu mejor tiempo</p>
+																		</div>
+																	</div>
+																</div>
+																<div class="col s6 achiv-cont">
+																	<div>
+																		<div>
+																			<p class="h3 rt-title">Mi desempeño</p>
+																		</div>
+																		<div class="perform-block">
+																			<p class="h5">Tarjetas de crédito</p>
+																			<div>---------------------------------  50%</div>
+																			<p class="h6 perf-desc">Necesitas entregar 20 tarjetas más</p>
+																		</div>
+																		<div class="perform-block">
+																			<p class="h5">Cross Celling</p>
+																			<div>---------------------------------   75%</div>
+																			<p class="h6 perf-desc">Necesitas vender 2 productos más</p>
+																		</div>
+																	</div>
 																</div>
 															</div>
 														</th>
 													</tr>
-												</c:forEach>
 											</tbody>								
 										</table>
-									</c:if>
-									<input type="hidden" id="nameCompany" name="nameCompany">
-	                    			<input type="hidden" id="keyVisit" name="keyVisit">
 								</form>
 							</div>
 						</div>           
