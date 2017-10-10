@@ -11,24 +11,9 @@
     <link rel="stylesheet" 		href="/payroll-agenda/statics/css/style.css">
     <link rel="stylesheet" href="/payroll-agenda/statics/css/keyboard.css">
     <link rel="stylesheet" href="/payroll-agenda/statics/css/jquery-ui.css">
-    <script src="/payroll-agenda/statics/js/vendors.min.js"></script>
-    <script src="/payroll-agenda/statics/js/main.min.js"></script>
     <script src="/payroll-agenda/statics/js/jquery-1.12.4.js"></script>
     <script src="/payroll-agenda/statics/js/jquery.keyboard.js"></script>
     <script src="/payroll-agenda/statics/js/jquery-ui.js"></script>
-    <script src="src/main/webapp/statics/js/angular/angular-ui-router.js"></script>
-    <script>
-		$(document).ready(function() {
-			var agent=navigator.userAgent;
-			if (agent.indexOf('Android')==-1) {
-				$('#userId').keyboard();
-				$('#password').keyboard(); 
-			}
-			$("#btn-login").click(function (){
-				messages.openLoading();
-			});
-		});
-	</script>
   </head> 
   <body id="body" class="login background-city-back" onload=""> <!-- isConnected() -->
     <main class="main-login container">
@@ -49,16 +34,12 @@
           <form id="loginForm" novalidate="novalidate" name="loginForm" action="/payroll-agenda/loginValid" method="post">
             <div class="row">
               <div class="col m8 offset-m2 col s10 offset-s1">
-              
                 <div class="data-write">
                   <div class="input-field">
-                    <input 	id="userId" name="userId" class="input-box-login" type="text"  tabindex="1" maxlength="10" required placeholder="Número de registro">
+                    <input 	id="userId" name="userId" class="userId" type="text"  tabindex="1" maxlength="10" required placeholder="Número de registro">
                   </div>
-                </div>
-
-                <div class="data-write">
                   <div class="input-field">
-                    <input type="password" id="password" name="password" class="input-box-login password-type"  tabindex="2" required placeholder="Contraseña">
+                    <input type="password" id="password" name="password" class="password"  tabindex="2" required placeholder="Contraseña">
                   </div>
                 </div>
                 <div class="message-error">
@@ -75,5 +56,7 @@
       </section>
     </main>
     <%@ include file="messages.jsp" %>
+   	<script src="/payroll-agenda/statics/js/vendors.min.js"></script>
+    <script src="/payroll-agenda/statics/js/main.min.js"></script>
   </body>
 </html>

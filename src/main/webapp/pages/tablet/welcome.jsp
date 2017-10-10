@@ -10,8 +10,6 @@
 		<link rel="shortcut icon" 	href="/payroll-agenda/statics/images/tablet/favicon.ico">
 		<link rel="stylesheet" 		href="/payroll-agenda/statics/css/style.css">
 		<script src="/payroll-agenda/statics/js/jquery-1.12.4.js"></script>
-		<script src="/payroll-agenda/statics/js/vendors.min.js"></script>
-		<script src="/payroll-agenda/statics/js/main.min.js"></script>
 		<script>
 		$(document).ready(function() {
 			$("#btn-welcome").click(function (){
@@ -52,5 +50,7 @@
 			</main>
 		</form>
 		<%@ include file="messages.jsp" %>
+		<script src="/payroll-agenda/statics/js/vendors.min.js"></script>
+		<script src="/payroll-agenda/statics/js/main.min.js"></script>
 	</body>
 </html>

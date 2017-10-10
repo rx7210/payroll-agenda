@@ -93,16 +93,56 @@ public class MockGeneration {
 	    return dataList;
 	}
 	
+//	id  | descripcion menu 	| descripcion boton 
+//
+//	0 	| Activo		| Activo
+//	1	| Esperando		| Esperando
+//	2	| Pendiente 	| Pendiente
+//	3	| Completado	| Completado
+	
+	
 	public List<Accounts> getAccounts (){
 		List<Accounts> listAccounts = new ArrayList<Accounts>();
 		Accounts accounts = new Accounts();
 		accounts.setClientName("Arriaga Hernández, Emmanuel");
 		accounts.setDda("123412341234");
+		accounts.setStatus("Activo");
 		listAccounts.add(accounts);
 		
 		accounts = new Accounts();
-		accounts.setClientName("Barrios Durán, Elsa");
+		accounts.setClientName("Arreaga Garcia, María Josefina");
+		accounts.setDda("4465234243234");
+		accounts.setStatus("Activo");
+		listAccounts.add(accounts);
+		
+		accounts = new Accounts();
+		accounts.setClientName("Ascencio Martínez, Juan");
 		accounts.setDda("123412341234");
+		accounts.setStatus("Esperando respuesta por parte del integrador");
+		listAccounts.add(accounts);
+		
+		accounts = new Accounts();
+		accounts.setClientName("Bernal Rodríguez, José Manuel");
+		accounts.setDda("123412341123");
+		accounts.setStatus("Pendiente");
+		listAccounts.add(accounts);
+		
+		accounts = new Accounts();
+		accounts.setClientName("Buenrostro Pérez, Jaime");
+		accounts.setDda("123412341234");
+		accounts.setStatus("Pendiente");
+		listAccounts.add(accounts);
+		
+		accounts = new Accounts();
+		accounts.setClientName("Burriega Juárez, Jimena");
+		accounts.setDda("123412341234");
+		accounts.setStatus("Pendiente");
+		listAccounts.add(accounts);
+		
+		accounts = new Accounts();
+		accounts.setClientName("Carmona González, Ricardo");
+		accounts.setDda("123412341234");
+		accounts.setStatus("Completado");
 		listAccounts.add(accounts);
 		
 		return listAccounts;

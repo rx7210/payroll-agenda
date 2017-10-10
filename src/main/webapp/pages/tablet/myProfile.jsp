@@ -19,68 +19,6 @@
     <link rel="stylesheet" 		href="/payroll-agenda/statics/css/vendors/default.time.css">
     <link rel="stylesheet" 		href="/payroll-agenda/statics/css/style.css">
    	<script src="/payroll-agenda/statics/js/jquery-1.12.4.js"></script>
-    <script>
-    $(document).ready(function() {
-    	
-    	$('#select-filter').change(function(){
-			var option, staVisit = ".staVisit" ;
-			$( "#select-filter option:selected" ).each(function() {
-				option = $( this ).val();
-			    });
-			if (option=="T"){
-				$ (staVisit).each(function (){
-					$(this).show();
-				});
-			}else{
-				$ (staVisit).each(function (){
-					$(this).hide();
-				});
-				$(staVisit+"." + option).show();
-			}
-		})
-
-    	$("#burger").click(openLeftMenu);
-		
-    	openRightAgenda = function (nameCompany,keyVisit,proposedDate){
-    		$("#companyNameTittle").text(unescape(nameCompany));
-    		$("#datepicker").attr("placeholder","Fecha propuesta: "+proposedDate)
-    		$("#agenda-form").find("#keyVisit").val(unescape(keyVisit));
-    		$("#agenda-form").find("#nameCompany").val(unescape(nameCompany));
-    		$('#right-black-shadow').animate({width:"100%"},0);
-			$('#r-content').animate({right:'0px'},50);
-    	};
-		
-		var closeRightAgenda = function (){
-			$('#right-black-shadow').animate({width:"0"},0);
-			$('#r-content').animate({right:'-500px'},50);
-		};
-		
-		$('#right-black-shadow').click(closeRightAgenda);
-		$("#rch-close").click(closeRightAgenda);
-		
-		$("#btn-save-agenda").click(function (){
-			timeSplit = $("#timepicker").val().split(" ");
-			$("#ampm").val(timeSplit[1]);
-			timeSplit = timeSplit[0].split(":");
-			$("#hours").val(timeSplit[0]);
-			$("#minutes").val(timeSplit[1]);
-			messages.openLoading();
-			$("#agenda-form").attr('action', '/payroll-agenda/agendar');
-			$("#agenda-form").submit();
-		});
-		
-		getStartVisit = function (nameCompany,keyVisit){
-			$("#activities-form").find("#nameCompany").val(unescape(nameCompany));
-			$("#activities-form").find("#keyVisit").val(unescape(keyVisit));
-			messages.openLoading();
-			$("#activities-form").attr('action', '/payroll-agenda/startVisit');
-			$("#activities-form").submit();
-		};
-	
-// 		$("#btn-continuar-visita").click(openStarVisit);
-// 		$("#btn-comenzar-visita").click(openStarVisit);
-    });
-    </script>
 	</head>
 	<body class="basic-template std-back">
 		<main id="container" class="container">
@@ -108,9 +46,12 @@
 							<div class="col s8 bwbh-title">
 								<p class="h2">Mi Perfil</p>                
 							</div>
-							<div class="col s4 bwbh-search">
-								<div class="data-write">
-									<!-- boton editar perfil  -->
+							<div class="col s4 bwbh-edit-profile">
+								<div id="edit-profile"class="data-write">
+									<div class="btn-edit">
+										<p class="h5 fond-red">Editar perfil</p>
+										<i class="icon icon-edit"></i>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -125,7 +66,7 @@
 															<div class="row msg-block">
 																<div class="msg-content">
 																	<div class="msg-icon">
-																		<i class="icon icon-personal"></i>
+																		<i class="icon icon-eye"></i>
 																	</div>
 																	<div class="msg-description">
 																		<p class="h5 msg-txt">Margarita, no olvides generar el reporte de tus visitas al terminar tu día de trabajo</p>
@@ -206,13 +147,27 @@
 																			<p class="h3 rt-title">Mi desempeño</p>
 																		</div>
 																		<div class="perform-block">
-																			<p class="h5">Tarjetas de crédito</p>
-																			<div>---------------------------------  50%</div>
+																			<p class="h5 perf-type">Tarjetas de crédito</p>
+																			<div>
+																				<div class="progressBar-block">
+																					<div class="progressBar-fondo"></div>
+																					<div class=" progress progressBar-active">
+																			        </div>
+																				</div>
+																				<p class="h5 porc-num">50%</p>
+																			</div>
 																			<p class="h6 perf-desc">Necesitas entregar 20 tarjetas más</p>
 																		</div>
 																		<div class="perform-block">
-																			<p class="h5">Cross Celling</p>
-																			<div>---------------------------------   75%</div>
+																			<p class="h5 perf-type">Cross Celling</p>
+																			<div>
+																				<div class="progressBar-block">
+																					<div class="progressBar-fondo"></div>
+																					<div class=" progress progressBar-active">
+																			        </div>
+																				</div>
+																				<p class="h5 porc-num">75%</p>
+																			</div>
 																			<p class="h6 perf-desc">Necesitas vender 2 productos más</p>
 																		</div>
 																	</div>
@@ -230,8 +185,6 @@
 			</section>
 		</main>
 		
-		<%@ include file="menu.jsp" %>
-		
 		<div id="right-black-shadow" class="right-black-shadow"></div>
 		
 		<section id="r-content" class="r-content">
@@ -241,111 +194,65 @@
 						<i class="icon icon icon-error"></i>
 					</div>
 					<div class="rch-title">
-						<p class="t-type">Agendar visita</p>
+						<p class="t-type">Editar Perfil</p>
+						<p class="t-type">Margarita Sánchez Romero</p>
 						<p id="companyNameTittle" class="t-leyend"/>
 					</div>
 				</div>
 				
 				<div class="rc-info">
-					<form id="agenda-form" class="rci-form" method="post">
+					<form id="edit-perfil-form" class="rci-form" method="post">
 						<div class="row">
 							<div class="col s12 rci-title">
-								<p>Fecha</p>
-<!-- 						 	<p>Fecha y hora propuestas</p> -->
+								<p>Modifica los datos de tu perfil</p>
 							</div>
 							<hr class="col s12">
-							<div class="col s12">
-								<div class="data-write rci-date">
-									<div class="input-field">
-										<input class="datepicker" id="datepicker" name="datepicker" type="text" maxlength="10" minlength="10" placeholder="Fecha">
-									</div>
-								</div>
-							</div>
-<!-- 							<div class="col s6"> -->
-<!-- 								<div class="data-write rci-hour"> -->
-<!-- 									<div class="input-field"> -->
-<!-- 										<input class="timepicker" type="text" maxlength="10" minlength="10" placeholder="Hora"> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-							<div class="col s12 rci-title">
-<!-- 							<p>Ubicación</p> -->
-								<p>Tiempo</p>
-							</div>
-							 <hr class="col s12">
-<!-- 							<div class="col s12"> -->
-<!-- 								<div class="data-write rci-date"> -->
-<!-- 									<div class="input-field"> -->
-<!-- 										<input type="text" maxlength="10" minlength="10" placeholder="Dirección"> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-							<div class="col s12">
-								<div class="data-write rci-hour">
-									<div class="input-field">
-										<input class="timepicker" id="timepicker" name="timepicker" type="text" maxlength="10" minlength="10" placeholder="Hora">
-									</div>
-								</div>
-							</div>
-							
+							<div class="col s12 input-field">
+			                    <input id="telefonoEdit" type="text" name="telefonoEdit" maxlength="80">
+			                    <label for="telefonoEdit">Tel&eacute;fono</label>
+			                    <p class="form-tips">Introduce tu tel&eacute;</p>
+			                </div>
+			                <div class="col s12 input-field">
+			                    <input id="emailEdit" type="text" name="emailEdit" maxlength="80">
+			                    <label for="emailEdit">Email</label>
+			                    <p class="form-tips">Introduce tu email</p>
+			                </div>
+			                <div class="col s12 input-field">
+			                    <input id="direccionEdit" type="text" name="direccionEdit" maxlength="80">
+			                    <label for="direccionEdit">Direcci&oacute;n</label>
+			                    <p class="form-tips">Introduce tu direcci&oacute;n tal como aparece en tu identificaci&oacute;n</p>
+			                </div>
+			                <div class="col s6 input-field">
+			                    <input id="numExteriorEdit" type="text" name="numExteriorEdit" maxlength="80">
+			                    <label for="numExteriorEdit">No. exterior</label>
+			                    <p class="form-tips">Introduce tu direcci&oacute;n tal como aparece en tu identificaci&oacute;n</p>
+			                </div>
+			                <div class="col s6 input-field">
+			                    <input id="numInteriorEdit" type="text" name="numInteriorEdit" maxlength="80">
+			                    <label for="numInteriorEdit">No. interior</label>
+			                    <p class="form-tips">Introduce tu direcci&oacute;n tal como aparece en tu identificaci&oacute;n</p>
+			                </div>
+			                <div class="col s6 input-field">
+			                    <input id="coloniaEdit" type="text" name="coloniaEdit" maxlength="80">
+			                    <label for="coloniaEdit">Col&oacute;nia</label>
+			                    <p class="form-tips">Introduce tu direcci&oacute;n tal como aparece en tu identificaci&oacute;n</p>
+			                </div>
+			                <div class="col s6 input-field">
+			                    <input id="cpEdit" type="text" name="cpEdit" maxlength="80">
+			                    <label for="cpEdit">C&oacute;digo Postal</label>
+			                    <p class="form-tips">Introduce tu direcci&oacute;n tal como aparece en tu identificaci&oacute;n</p>
+			                </div>
 							<div class="col s12 cont-btn">
 								<a id="btn-save-agenda" class="btn little red">Guardar</a>
 							</div>
 						</div>
-	                    <input type="hidden" id="nameCompany" name="nameCompany">
-	                    <input type="hidden" id="keyVisit" name="keyVisit">
-						<input type="hidden" id="hours" name="hours">
-						<input type="hidden" id="minutes" name="minutes">
-						<input type="hidden" id="ampm" name="ampm">
-<!-- 				<div class="rci-title"> -->
-<!-- 					<p>Datos de contacto para agendar visita</p> -->
-<!-- 				</div> -->
-<!-- 				<hr> -->
-<!-- 				<div class="data-write"> -->
-<!-- 					<p class="rci-subtext">Contacto en la empresa</p> -->
-<!-- 					<input type="text" class="input-text-info" id="nombreContacto" name="nombreContacto" readonly="readonly"/> -->
-<!-- 				</div> -->
-<!-- 				<div class="data-write"> -->
-<!-- 					<p class="rci-subtext">Teléfono:</p> -->
-<!-- 					<input type="text" class="input-text-info" id="telefonoContacto" name="telefonoContacto" readonly="readonly"/> -->
-<!-- 				</div> -->
-<!-- 				<div class="data-write"> -->
-<!-- 					<p class="rci-subtext">Cuentas:</p> -->
-<!-- 					<input type="text" class="input-text-info" id="cuenta" name="cuenta" readonly="readonly"> -->
-<!-- 				</div> -->
 				</form>
 			</div>
 		</div>
 	</section>
-		<script src="/payroll-agenda/statics/js/vendors.min.js"></script>
-    	<script src="/payroll-agenda/statics/js/main.min.js"></script>
-    	<script src="/payroll-agenda/statics/js/vendors/picker.js"></script>
-    	<script src="/payroll-agenda/statics/js/vendors/picker.time.js"></script>
-    	<script src="/payroll-agenda/statics/js/vendors/legacy.js"></script>
-    	<script>
-    	$('.datepicker').pickadate({
-//     	    selectMonths: true, // Creates a dropdown to control month
-//     	    selectYears: 15, // Creates a dropdown of 15 years to control year,
-    	    today: 'Today',
-    	    format : 'dd/mm/yyyy',
-    	    clear: 'Limpiar',
-    	    close: 'Listo',
-    	    minDate : new Date(), 
-			time: false,
-    	    closeOnSelect: false // Close upon selecting a date,
-    	});
-    	$('.timepicker').pickatime({
-	        fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-	        twelvehour: true, // Use AM/PM or 24-hour format
-	        interval: 15,
-	        donetext: 'Listo', // text for done-button
-	        cleartext: 'Clear', // text for clear-button
-	        canceltext: 'Cancel', // Text for cancel-button
-	        autoclose: false, // automatic close timepicker
-	        ampmclickable: false, // make AM PM clickable
-	        onSet: function(){} //Function for after opening timepicker
-      });
-    	</script>
-    	<%@ include file="messages.jsp" %>
+	<%@ include file="menu.jsp" %>
+	<%@ include file="messages.jsp" %>
+	<script src="/payroll-agenda/statics/js/vendors.min.js"></script>
+   	<script src="/payroll-agenda/statics/js/main.min.js"></script>
 	</body>
 </html>

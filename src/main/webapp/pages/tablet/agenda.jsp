@@ -19,68 +19,6 @@
     <link rel="stylesheet" 		href="/payroll-agenda/statics/css/vendors/default.time.css">
     <link rel="stylesheet" 		href="/payroll-agenda/statics/css/style.css">
    	<script src="/payroll-agenda/statics/js/jquery-1.12.4.js"></script>
-    <script>
-    $(document).ready(function() {
-    	
-    	$('#select-filter').change(function(){
-			var option, staVisit = ".staVisit" ;
-			$( "#select-filter option:selected" ).each(function() {
-				option = $( this ).val();
-			    });
-			if (option=="T"){
-				$ (staVisit).each(function (){
-					$(this).show();
-				});
-			}else{
-				$ (staVisit).each(function (){
-					$(this).hide();
-				});
-				$(staVisit+"." + option).show();
-			}
-		})
-
-    	$("#burger").click(openLeftMenu);
-		
-    	openRightAgenda = function (nameCompany,keyVisit,proposedDate){
-    		$("#companyNameTittle").text(unescape(nameCompany));
-    		$("#datepicker").attr("placeholder","Fecha propuesta: "+proposedDate)
-    		$("#agenda-form").find("#keyVisit").val(unescape(keyVisit));
-    		$("#agenda-form").find("#nameCompany").val(unescape(nameCompany));
-    		$('#right-black-shadow').animate({width:"100%"},0);
-			$('#r-content').animate({right:'0px'},50);
-    	};
-		
-		var closeRightAgenda = function (){
-			$('#right-black-shadow').animate({width:"0"},0);
-			$('#r-content').animate({right:'-500px'},50);
-		};
-		
-		$('#right-black-shadow').click(closeRightAgenda);
-		$("#rch-close").click(closeRightAgenda);
-		
-		$("#btn-save-agenda").click(function (){
-			timeSplit = $("#timepicker").val().split(" ");
-			$("#ampm").val(timeSplit[1]);
-			timeSplit = timeSplit[0].split(":");
-			$("#hours").val(timeSplit[0]);
-			$("#minutes").val(timeSplit[1]);
-			messages.openLoading();
-			$("#agenda-form").attr('action', '/payroll-agenda/agendar');
-			$("#agenda-form").submit();
-		});
-		
-		getStartVisit = function (nameCompany,keyVisit){
-			$("#activities-form").find("#nameCompany").val(unescape(nameCompany));
-			$("#activities-form").find("#keyVisit").val(unescape(keyVisit));
-			messages.openLoading();
-			$("#activities-form").attr('action', '/payroll-agenda/startVisit');
-			$("#activities-form").submit();
-		};
-	
-// 		$("#btn-continuar-visita").click(openStarVisit);
-// 		$("#btn-comenzar-visita").click(openStarVisit);
-    });
-    </script>
 	</head>
 	<body class="basic-template std-back">
 		<main id="container" class="container">
@@ -110,7 +48,6 @@
 							</div>
 							<div class="col s4 bwbh-search">
 								<div class="data-write">
-									<div class="input-field">
 										<select id="select-filter"> 
 											<option value="T"  selected>Ver todas</option>
 											<option value="0">No agendadas</option>
@@ -119,7 +56,6 @@
 											<option value="3">Imagenes Pendientes</option>  
 											<option value="4">Completadas</option>	
 										</select>
-									</div>
 								</div>
 							</div>
 							<div class="bwb-secondary-i">
@@ -187,12 +123,12 @@
 																		</div>
 																	</c:if>
 																	<c:if test="${company.staVisit == 0}">
-																		<div  class="cont-btn" onclick="openRightAgenda('${company.companyName}','${company.cveVisit}','${company.proposedDate}');">
+																		<div  class="cont-btn" onclick="payRoll.activities.openRightAgenda('${company.companyName}','${company.cveVisit}','${company.proposedDate}');">
 																			<a class="btn small line" >Agendar visita</a>
 																		</div>
 																	</c:if>
 																	<c:if test="${company.staVisit == 1}">
-																		<div id="btn-comenzar-visita"  class="cont-btn" onclick="getStartVisit('${company.companyName}','${company.cveVisit}');">
+																		<div id="btn-comenzar-visita"  class="cont-btn" onclick="payRoll.activities.getStartVisit('${company.companyName}','${company.cveVisit}');">
 																			<a class="btn small blue">Comenzar visita</a>
 																		</div>
 																	</c:if>
@@ -229,8 +165,6 @@
 			</section>
 		</main>
 		
-		<%@ include file="menu.jsp" %>
-		
 		<div id="right-black-shadow" class="right-black-shadow"></div>
 		
 		<section id="r-content" class="r-content">
@@ -256,7 +190,7 @@
 							<div class="col s12">
 								<div class="data-write rci-date">
 									<div class="input-field">
-										<input class="datepicker" id="datepicker" name="datepicker" type="text" maxlength="10" minlength="10" placeholder="Fecha">
+										<input class="datepicker" id="datepicker" name="datepicker" type="text" placeholder="Fecha">
 									</div>
 								</div>
 							</div>
@@ -282,7 +216,7 @@
 							<div class="col s12">
 								<div class="data-write rci-hour">
 									<div class="input-field">
-										<input class="timepicker" id="timepicker" name="timepicker" type="text" maxlength="10" minlength="10" placeholder="Hora">
+										<input class="timepicker" id="timepicker" name="timepicker" type="text" placeholder="Hora">
 									</div>
 								</div>
 							</div>
@@ -316,35 +250,12 @@
 			</div>
 		</div>
 	</section>
+	<%@ include file="menu.jsp" %>
+	<%@ include file="messages.jsp" %>
 		<script src="/payroll-agenda/statics/js/vendors.min.js"></script>
-    	<script src="/payroll-agenda/statics/js/main.min.js"></script>
     	<script src="/payroll-agenda/statics/js/vendors/picker.js"></script>
     	<script src="/payroll-agenda/statics/js/vendors/picker.time.js"></script>
     	<script src="/payroll-agenda/statics/js/vendors/legacy.js"></script>
-    	<script>
-    	$('.datepicker').pickadate({
-//     	    selectMonths: true, // Creates a dropdown to control month
-//     	    selectYears: 15, // Creates a dropdown of 15 years to control year,
-    	    today: 'Today',
-    	    format : 'dd/mm/yyyy',
-    	    clear: 'Limpiar',
-    	    close: 'Listo',
-    	    minDate : new Date(), 
-			time: false,
-    	    closeOnSelect: false // Close upon selecting a date,
-    	});
-    	$('.timepicker').pickatime({
-	        fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
-	        twelvehour: true, // Use AM/PM or 24-hour format
-	        interval: 15,
-	        donetext: 'Listo', // text for done-button
-	        cleartext: 'Clear', // text for clear-button
-	        canceltext: 'Cancel', // Text for cancel-button
-	        autoclose: false, // automatic close timepicker
-	        ampmclickable: false, // make AM PM clickable
-	        onSet: function(){} //Function for after opening timepicker
-      });
-    	</script>
-    	<%@ include file="messages.jsp" %>
+    	<script src="/payroll-agenda/statics/js/main.min.js"></script>
 	</body>
 </html>

@@ -20,7 +20,7 @@
 					</a>
 				</li>
 				<li>
-					<a class="lm-link">
+					<a id="lm-link-profile" class="lm-link">
 						<i class="icon icon-twins"></i>
 						<span>Mi perfil</span>
 					</a>
@@ -58,35 +58,3 @@
 		</form>	
 	</div>
 </section>
-<script>
-	menu_form = $("#menu-form");
-	left_white_shadow=$('#left-white-shadow');	
-   	left_menu=$('#left-menu');
-   	lm_close=$("#lm-close");
-   	
-   	var openLeftMenu = function (){
-   		left_white_shadow.animate({width:"100%"},0);
-		left_menu.animate({left:'0px'},50);	
-   	}
-   	
-   	var closeLeftMenu = function (){
-		left_white_shadow.animate({width:"0"},0);
-		left_menu.animate({left:'-340px'},0);
-	}
-   	
-	left_white_shadow.click(closeLeftMenu);
-	lm_close.click(closeLeftMenu);
-   	
-   	$("#lm-down").click(function (){
-		messages.openLoading();
-		menu_form.attr('action', '/payroll-agenda/exitAgenda');
-		menu_form.submit();
-	});
-	
-	$("#lm-link-agenda").click(function (){
-		messages.openLoading();
-		closeLeftContent();
-		menu_form.attr('action', '/payroll-agenda/homeAgenda');
-		menu_form.submit();
-	});
-</script>

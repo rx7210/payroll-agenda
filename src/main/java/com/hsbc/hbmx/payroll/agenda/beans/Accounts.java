@@ -191,7 +191,7 @@ public class Accounts implements Serializable {
      * @param status
      *            the status to set
      */
-    public void setStatus(final String status) {
+    public void setStatus(final String status) {	
         this.status = status;
     }
 }

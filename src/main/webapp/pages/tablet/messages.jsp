@@ -16,30 +16,3 @@
 		<p class="h3 loading-text">Cargando todos tus datos...</p>
 	</div>
 </section>
-		
-
-<script>
-var messages = {		
-		  openMessageFailConnection : function (){
-			$("#msg-black-shadow").animate({width:"100%"},0);
-			$("#message-cont-conexion").animate({top:"0"},50);	
-			setTimeout(messages.validateConnection,1000); 
-		},closeMessageFailConnection: function () {
-			$("#msg-black-shadow").animate({width:"0%"},0);
-	        $("#message-cont-conexion").animate({top:"-165px"},50);
-	        setTimeout(messages.validateConnection,1000); 
-	    },validateConnection : function (){
-	    	if(navigator.onLine){
-	    		messages.closeMessageFailConnection();
-	    	}else{
-	    		messages.openMessageFailConnection(); 
-	    	}
-	    },openLoading: function (){
-	    	$("#loading").animate({width:"100%"},0);
-	    }
-};
-
-$("#msg-close").click(messages.closeMessageFailConnection);
-$("#msg-black-shadow").click(messages.closeMessageFailConnection);
-setTimeout(messages.validateConnection,1000); 
-</script>
